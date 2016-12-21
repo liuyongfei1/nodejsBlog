@@ -1,11 +1,24 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<% include header.ejs %>
+<div class="hero-unit">
+    <h1>欢迎来到 Microblog</h1>
+    <p>Microblog 是一个基于 Node.js 的微博系統。</p>
+    <p>
+      <a class="btn btn-primary btn-large" href="/login">登录</a>
+      <a class="btn btn-large" href="/reg">立即注册</a>
+    </p>
+</div>
+<div class="row">
+    <div class="span4">
+      <h2>Carbo说</h2>
+      <p>test</p>
+    </div>
+    <div class="span4">
+        <h2>BYVoid 说</h2>
+        <p>一个开源的中文简繁转换项目</p>
+    </div>
+    <div class="span4">
+        <h2>福振 说</h2>
+        <p>项目网站</p>
+    </div>
+</div>
+<% include footer.ejs %>
