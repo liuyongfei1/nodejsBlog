@@ -9,11 +9,33 @@ var partials = require('express-partials');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+var settings = require('./settings')
+var MongoStore = require('connect-mongo')
+
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.configure(function(){
+  // view engine setup
+  app.set('views', path.join(__dirname, 'views'));
+  app.set('view engine', 'ejs');
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(express.cookieParser()); // cookie解析中间件
+  // 提供会话支持，设置它的store参数为MongoStore实例，把会话信息存储到数据库中去，以避免数据丢失
+  app.use(express.session({
+    secret : settings.cookieSecret,
+    cookie : {
+      maxAge : 60000 * 20	//20 minutes
+    },
+    store : new MongoStore({
+      db : settings.db
+    })
+  }))
+  app.use(app.router)
+  app.use(express.static(__dirname + '/public'))
+})
+
+
 // 启用layout
 app.use(partials());
 // uncomment after placing your favicon in /public
