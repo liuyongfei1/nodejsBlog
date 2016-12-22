@@ -10,15 +10,17 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var settings = require('./setting')
-// var MongoStore = require('connect-mongo')
 var session = require('express-session')
 var MongoStore = require('connect-mongo')(session)
 var methodOverride = require('method-override');
 var flash = require('connect-flash')
+
 var router = express.Router();
+var routes = require('./routes/index')
 
 var app = express();
 
+// console.log(routess.test)
 // app.configure(function(){
   // view engine setup
   app.set('views', path.join(__dirname, 'views'));
@@ -48,7 +50,7 @@ var app = express();
   app.use(flash());
 
   // app.use(app.router)
-  app.use(router)
+  // app.use(router)
   app.use(express.static(__dirname + '/public'))
 // })
 
@@ -63,8 +65,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+// app.use('/', index);
+// app.use('/users', users);
+
+app.get('/',routes.index)
+app.get('/reg',routes.reg)
+app.post('/reg',routes.doReg)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -82,6 +88,9 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+  // res.locals.errors = req.flash('error');
+  // res.locals.infos = req.flash('info');
+  // next();
 });
 
 module.exports = app;
