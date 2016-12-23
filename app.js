@@ -49,6 +49,12 @@ var app = express();
 
   app.use(flash());
 
+  app.use(function (req, res, next) {
+    res.locals.errors = req.flash('error');
+    res.locals.infos = req.flash('info');
+    next();
+  });
+
   // app.use(app.router)
   // app.use(router)
   app.use(express.static(__dirname + '/public'))
@@ -80,17 +86,17 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-  // res.locals.errors = req.flash('error');
-  // res.locals.infos = req.flash('info');
-  // next();
-});
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   // res.locals.message = err.message;
+//   // res.locals.error = req.app.get('env') === 'development' ? err : {};
+//
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.render('error');
+//   // res.locals.errors = req.flash('error');
+//   // res.locals.infos = req.flash('info');
+//   // next();
+// });
 
 module.exports = app;

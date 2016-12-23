@@ -18,7 +18,7 @@
     "connect-mongo":">= 1.0.2",
     "body-parser" : "*",
     "method-override" : "*",
-    "express-session" : "*",
-    "connect-flash" : "*"
+    "connect-flash" : "*",
+    "express-session" : "*"
   }
 }
