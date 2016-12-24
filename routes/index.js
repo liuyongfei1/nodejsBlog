@@ -53,6 +53,35 @@ exports.doReg = function(req, res) {
 
 }
 
+exports.login = function (req,res) {
+  res.render('login',{
+    title : '用户登录',
+    user : req.session.user,
+    success : req.flash('success').toString(),
+    error : req.flash('error').toString()
+  })
+}
+
+exports.doLogin = function (req,res) {
+  // 生成散列值
+  var md5 = crypto.createHash('md5')
+  var password = md5.update(req.body.password).digest('base64')
+
+  User.get(req.body.name,function (err,user) {
+    if (!user) {
+			req.flash('error', '用户不存在');
+			return res.redirect('/login');
+		}
+    if (user.password != password) {
+			req.flash('error', '密码错误');
+			return res.redirect('/login');
+		}
+    req.session.user = user;
+		req.flash('success', '登录成功');
+		res.redirect('/');
+  })
+}
+
 exports.logout =  function(req,res) {
   req.session.user = null;
   req.flash('success','退出成功')

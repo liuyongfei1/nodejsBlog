@@ -83,6 +83,8 @@ app.use(function(req, res, next){
 app.get('/',routes.index)
 app.get('/reg',routes.reg)
 app.post('/reg',routes.doReg)
+app.get('/login',routes.login)
+app.post('/login',routes.doLogin)
 app.get('/logout',routes.logout)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
