@@ -28,7 +28,7 @@ User.prototype.save = function save(callback) {
       //save
       collection.insert(user, {safe : true},function (err,user) {
         mongodb.close()
-        callback(err.user)
+        callback(err,user)
       })
     })
   })
@@ -50,10 +50,13 @@ User.get = function get(username, callback) {
 			//find
 			collection.findOne({name: username}, function(err, doc) {
 				mongodb.close();
+        console.log('get53:' + username)
+        console.log('get54:' + doc)
 				if (doc) {
 					var user = new User(doc)
 					callback(err, user)
 				} else {
+          console.log('get59:')
 					callback(err, null)
 				}
 			})
