@@ -17,8 +17,8 @@ exports.reg = function (req, res) {
 exports.doReg = function(req, res) {
   //检查密码
     if (req.body['password-repeat'] != req.body['password']) {
-		req.flash('error', '两次输入的密码不一致')
-		return res.redirect('/reg')
+  		req.flash('error', '两次输入的密码不一致')
+  		return res.redirect('/reg')
     }
 
     //生成md5的密码
@@ -53,4 +53,9 @@ exports.doReg = function(req, res) {
 
 }
 
+exports.logout =  function(req,res) {
+  req.session.user = null;
+  req.flash('success','退出成功')
+  res.redirect('/')
+}
 // module.exports = router

@@ -20,7 +20,6 @@ var routes = require('./routes/index')
 
 var app = express();
 
-// console.log(routess.test)
 // app.configure(function(){
   // view engine setup
   app.set('views', path.join(__dirname, 'views'));
@@ -48,12 +47,6 @@ var app = express();
   }))
 
   app.use(flash());
-
-  app.use(function (req, res, next) {
-    res.locals.errors = req.flash('error');
-    res.locals.infos = req.flash('info');
-    next();
-  });
 
   // app.use(app.router)
   // app.use(router)
@@ -90,7 +83,7 @@ app.use(function(req, res, next){
 app.get('/',routes.index)
 app.get('/reg',routes.reg)
 app.post('/reg',routes.doReg)
-
+app.get('/logout',routes.logout)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

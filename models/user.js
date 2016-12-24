@@ -50,8 +50,6 @@ User.get = function get(username, callback) {
 			//find
 			collection.findOne({name: username}, function(err, doc) {
 				mongodb.close();
-        console.log('get53:' + username)
-        console.log('get54:' + doc)
 				if (doc) {
 					var user = new User(doc)
 					callback(err, user)
