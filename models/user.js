@@ -47,14 +47,13 @@ User.get = function get(username, callback) {
 				return callback(err)
 			}
 
-			//find
+			//检查是否存在该用户
 			collection.findOne({name: username}, function(err, doc) {
 				mongodb.close();
 				if (doc) {
 					var user = new User(doc)
 					callback(err, user)
 				} else {
-          console.log('get59:')
 					callback(err, null)
 				}
 			})
