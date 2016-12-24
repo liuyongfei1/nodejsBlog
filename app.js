@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+// var index = require('./routes/index');
+// var users = require('./routes/users');
 
 var settings = require('./setting')
 var session = require('express-session')
@@ -70,6 +70,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function(req, res, next){
+      console.log("app.usr local");
+      res.locals.user = req.session.user;
+      res.locals.post = req.session.post;
+      var error = req.flash('error');
+      res.locals.error = error.length ? error : null;
+
+      var success = req.flash('success');
+      res.locals.success = success.length ? success : null;
+      next();
+    });
+
 
 // app.use('/', index);
 // app.use('/users', users);
