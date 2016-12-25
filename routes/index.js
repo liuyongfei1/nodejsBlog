@@ -43,7 +43,7 @@ exports.doReg = function(req, res) {
       newUser.save(function (err) {
         if (err) {
           req.flash('error',err)
-          return req.redirect('/reg')
+          return res.redirect('/reg')
         }
         req.session.user = newUser
         req.flash('success','注册成功')
@@ -69,6 +69,7 @@ exports.doLogin = function (req,res) {
 
   User.get(req.body.username,function (err,user) {
     // console.dir(user)
+
     if (!user) {
 			req.flash('error', '用户不存在')
       return res.redirect('/')
