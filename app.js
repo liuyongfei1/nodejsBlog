@@ -70,28 +70,25 @@ app.use(function(req, res, next){
       res.locals.post = req.session.post;
       var error = req.flash('error');
       res.locals.error = error.length ? error : null;
-
       var success = req.flash('success');
       res.locals.success = success.length ? success : null;
       next();
     });
 
-
-// app.use('/', index);
-// app.use('/users', users);
-
+// route
 app.get('/',routes.index)
 app.get('/reg',routes.reg)
 app.post('/reg',routes.doReg)
 app.get('/login',routes.login)
 app.post('/login',routes.doLogin)
 app.get('/logout',routes.logout)
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
-});
+})
 
 // error handler
 // app.use(function(err, req, res, next) {
