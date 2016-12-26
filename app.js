@@ -87,6 +87,8 @@ app.get('/login',routes.checkNotLogin)
 app.post('/login',routes.doLogin)
 app.get('/logout',routes.checkLogin)
 app.get('/logout',routes.logout)
+app.post('/published',routes.published)
+app.get('/u/:user',routes.show)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

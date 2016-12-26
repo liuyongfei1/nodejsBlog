@@ -1,0 +1,6 @@
+<% include header.ejs %>
+ <% if (user) { %>
+   <%- partial('say') %>
+   <% } %>
+<%- partial('posts') %>
+<% include footer.ejs %>
