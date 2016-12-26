@@ -77,10 +77,15 @@ app.use(function(req, res, next){
 
 // route
 app.get('/',routes.index)
+app.get('/reg',routes.checkNotLogin)
 app.get('/reg',routes.reg)
+app.post('/post',routes.checkNotLogin)
 app.post('/reg',routes.doReg)
+app.get('/login',routes.checkNotLogin)
 app.get('/login',routes.login)
+app.get('/login',routes.checkNotLogin)
 app.post('/login',routes.doLogin)
+app.get('/logout',routes.checkLogin)
 app.get('/logout',routes.logout)
 
 // catch 404 and forward to error handler
