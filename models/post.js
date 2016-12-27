@@ -1,6 +1,6 @@
 var mongodb = require('./db')
 function Post (username,post,time) {
-  this.username = username
+  this.user = username
   this.post = post
   if (time) {
     this.time = time
@@ -19,7 +19,7 @@ Post.prototype.save = function (callback) {
   }
   mongodb.open(function (err,db){
     if (err) {
-      callback(err)
+      return callback(err)
     }
     // 读取posts集合
     db.collection('posts',function (err,collection) {
@@ -28,9 +28,9 @@ Post.prototype.save = function (callback) {
         return callback(err)
       }
       //为user属性添加索引
-      collection.ensureIndex('index')
+      collection.ensureIndex('user')
       // 写入post文档
-      collection.insert('posts',{safe : true}, function (err,post) {
+      collection.insert(post,{safe : true}, function (err,post) {
         mongodb.close()
         callback(err,post)
       })
