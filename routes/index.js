@@ -88,7 +88,7 @@ exports.doLogin = function (req,res) {
   })
 }
 
-exports.published = function (req,res) {
+exports.publish = function (req,res) {
   var currentUser = req.session.user
   var post = new Post(currentUser.name,req.body.post)
   post.save(function (err) {
@@ -112,9 +112,13 @@ exports.show = function (req,res) {
         req.flash('error',err)
         return res.redirect('/')
       }
+  
       res.render('user',{
         title : user.name,
-        posts: posts
+        posts: posts,
+				user : req.session.user,
+				success : req.flash('success').toString(),
+				error : req.flash('error').toString()
       })
     })
   })
