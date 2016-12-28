@@ -10,7 +10,20 @@ var router = express.Router();
 // });
 
 exports.index = function (req, res) {
-    res.render('index', { title: 'Express' });
+  Post.get(null,function (err,posts) {
+    if (err) {
+      posts = []
+    }
+    res.render('index',
+    {
+      title: '首页',
+      posts : posts,
+			user : req.session.user,
+			success : req.flash('success').toString(),
+			error : req.flash('error').toString() 
+    })
+  })
+
 }
 exports.reg = function (req, res) {
     res.render('reg', { title: '用户注册' });

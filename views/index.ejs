@@ -1,4 +1,4 @@
-<% include header.ejs %>
+<% if (!user) { %>
 <div class="hero-unit">
     <h1>欢迎来到 Blog</h1>
     <p>phping-nodejsBlog 是一个基于 Node.js 的微博系統。</p>
@@ -7,18 +7,7 @@
       <a class="btn btn-large" href="/reg">立即注册</a>
     </p>
 </div>
-<div class="row">
-    <div class="span4">
-      <h2>Carbo说</h2>
-      <p>test</p>
-    </div>
-    <div class="span4">
-        <h2>BYVoid 说</h2>
-        <p>一个开源的中文简繁转换项目</p>
-    </div>
-    <div class="span4">
-        <h2>福振 说</h2>
-        <p>项目网站</p>
-    </div>
-</div>
-<% include footer.ejs %>
+<% } else { %>
+   <%- partial('say') %>
+<% } %>
+<%- partial('posts', {posts:posts}) %>
