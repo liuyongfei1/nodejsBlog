@@ -12,9 +12,9 @@
 #### 1.用户注册
 界面如下：
 ![用户注册](./public/img/reg.png)
-2.用户登录
+#### 2.用户登录
 ![用户登录](./public/img/login.png)
-3.发表微博
+#### 3.发表微博
 ![发表微博](./public/img/publish.png)
-4.显示微博
+#### 4.显示微博
 ![显示微博](./public/img/show.png)
