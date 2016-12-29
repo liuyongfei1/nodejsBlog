@@ -6,9 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 
-// var index = require('./routes/index');
-// var users = require('./routes/users');
-
 var settings = require('./setting')
 var session = require('express-session')
 var MongoStore = require('connect-mongo')(session)
@@ -26,11 +23,8 @@ var app = express();
   app.set('view engine', 'ejs');
 
   app.set('trust proxy', 1) // trust first proxy
-  // app.use(express.bodyParser());
   app.use(require('body-parser').urlencoded({extended: true}))
-  // app.use(express.methodOverride());
   app.use(methodOverride())
-  // app.use(express.cookieParser()); // cookie解析中间件
   app.use(cookieParser())
   // 提供会话支持，设置它的store参数为MongoStore实例，把会话信息存储到数据库中去，以避免数据丢失
   app.use(session({
