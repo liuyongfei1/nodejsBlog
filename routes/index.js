@@ -5,10 +5,6 @@ var Post = require('../models/post.js')
 var router = express.Router();
 
 /* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
-
 exports.index = function (req, res) {
   Post.get(null,function (err,posts) {
     if (err) {
@@ -20,7 +16,7 @@ exports.index = function (req, res) {
       posts : posts,
 			user : req.session.user,
 			success : req.flash('success').toString(),
-			error : req.flash('error').toString() 
+			error : req.flash('error').toString()
     })
   })
 

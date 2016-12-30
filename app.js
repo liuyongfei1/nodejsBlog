@@ -17,36 +17,33 @@ var routes = require('./routes/index')
 
 var app = express();
 
-// app.configure(function(){
-  // view engine setup
-  app.set('views', path.join(__dirname, 'views'));
-  app.set('view engine', 'ejs');
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
-  app.set('trust proxy', 1) // trust first proxy
-  app.use(require('body-parser').urlencoded({extended: true}))
-  app.use(methodOverride())
-  app.use(cookieParser())
-  // 提供会话支持，设置它的store参数为MongoStore实例，把会话信息存储到数据库中去，以避免数据丢失
-  app.use(session({
-    secret : settings.cookieSecret,
-    cookie : {
-      maxAge : 60000 * 20	//20 minutes
-    },
-    store : new MongoStore({
-      db : settings.db,
-      url : 'mongodb://localhost/microblog'
-    }),
-    resave : false,
-    saveUninitialized : false,
-  }))
+app.set('trust proxy', 1) // trust first proxy
+app.use(require('body-parser').urlencoded({extended: true}))
+app.use(methodOverride())
+app.use(cookieParser())
+// 提供会话支持，设置它的store参数为MongoStore实例，把会话信息存储到数据库中去，以避免数据丢失
+app.use(session({
+  secret : settings.cookieSecret,
+  cookie : {
+    maxAge : 60000 * 20	//20 minutes
+  },
+  store : new MongoStore({
+    db : settings.db,
+    url : 'mongodb://localhost/microblog'
+  }),
+  resave : false,
+  saveUninitialized : false,
+}))
 
-  app.use(flash());
+app.use(flash());
 
-  // app.use(app.router)
-  // app.use(router)
-  app.use(express.static(__dirname + '/public'))
-// })
-
+// app.use(app.router)
+// app.use(router)
+app.use(express.static(__dirname + '/public'))
 
 // 启用layout
 app.use(partials());
@@ -69,7 +66,7 @@ app.use(function(req, res, next){
       next();
     });
 
-// route
+// route start......
 app.get('/',routes.index)
 app.get('/reg',routes.checkNotLogin)
 app.get('/reg',routes.reg)
@@ -83,6 +80,7 @@ app.get('/logout',routes.checkLogin)
 app.get('/logout',routes.logout)
 app.post('/publish',routes.publish)
 app.get('/u/:user',routes.show)
+// route end......
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -96,13 +94,6 @@ app.use(function(req, res, next) {
 //   // set locals, only providing error in development
 //   // res.locals.message = err.message;
 //   // res.locals.error = req.app.get('env') === 'development' ? err : {};
-//
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-//   // res.locals.errors = req.flash('error');
-//   // res.locals.infos = req.flash('info');
-//   // next();
 // });
 
 module.exports = app;
