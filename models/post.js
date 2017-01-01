@@ -10,6 +10,7 @@ function Post (username,post,time) {
 }
 module.exports = Post
 
+// 保存用户发表的信息
 Post.prototype.save = function (callback) {
   // 存入Mongodb的文档
   var post = {
@@ -38,6 +39,7 @@ Post.prototype.save = function (callback) {
   })
 }
 
+// 获取用户发表的信息
 Post.get = function get(username,callback) {
   mongodb.open(function (err,db) {
     if (err) {
@@ -66,6 +68,7 @@ Post.get = function get(username,callback) {
 
         var posts = []
 
+        // 循环显示属于该用户的所有信息
         docs.forEach(function(doc, index) {
             var post = new Post(doc.user, doc.post, doc.time);
             posts.push(post);

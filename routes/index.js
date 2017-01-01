@@ -121,7 +121,7 @@ exports.show = function (req,res) {
         req.flash('error',err)
         return res.redirect('/')
       }
-
+      // console.dir(user, {colors: true})
       res.render('user',{
         title : user.name,
         posts: posts,
