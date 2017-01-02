@@ -21,6 +21,8 @@ exports.index = function (req, res) {
   })
 
 }
+
+// 用户注册
 exports.reg = function (req, res) {
     res.render('reg', { title: '用户注册' });
 }
@@ -62,7 +64,7 @@ exports.doReg = function(req, res) {
     })
 
 }
-
+// 用户登录
 exports.login = function (req,res) {
   res.render('login',{
     title : '用户登录',
@@ -96,7 +98,7 @@ exports.doLogin = function (req,res) {
 		res.redirect('/');
   })
 }
-
+// 用户发布微博
 exports.publish = function (req,res) {
   var currentUser = req.session.user
   var post = new Post(currentUser.name,req.body.post)
@@ -132,7 +134,7 @@ exports.show = function (req,res) {
     })
   })
 }
-
+// 展示用户发布的微博
 exports.checkLogin = function (req,res,next) {
   if (!req.session.user) {
     req.flash('error','未登陆')
@@ -140,7 +142,7 @@ exports.checkLogin = function (req,res,next) {
   }
   next()
 }
-
+// 检查是否登录过
 exports.checkNotLogin = function (req,res,next) {
   if (req.session.user) {
     req.flash('error','已登入')
