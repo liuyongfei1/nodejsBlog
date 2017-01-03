@@ -67,19 +67,21 @@ app.use(function(req, res, next){
     });
 
 // route start......
-app.get('/',routes.index)
-app.get('/reg',routes.checkNotLogin)
-app.get('/reg',routes.reg)
-app.post('/post',routes.checkNotLogin)
-app.post('/reg',routes.doReg)
-app.get('/login',routes.checkNotLogin)
-app.get('/login',routes.login)
-app.get('/login',routes.checkNotLogin)
-app.post('/login',routes.doLogin)
-app.get('/logout',routes.checkLogin)
-app.get('/logout',routes.logout)
-app.post('/publish',routes.publish)
-app.get('/u/:user',routes.show)
+// app.get('/',routes.index)
+// app.get('/reg',routes.checkNotLogin)
+// app.get('/reg',routes.reg)
+// app.post('/post',routes.checkNotLogin)
+// app.post('/reg',routes.doReg)
+// app.get('/login',routes.checkNotLogin)
+// app.get('/login',routes.login)
+// app.get('/login',routes.checkNotLogin)
+// app.post('/login',routes.doLogin)
+// app.get('/logout',routes.checkLogin)
+// app.get('/logout',routes.logout)
+// app.post('/publish',routes.publish)
+// app.get('/u/:user',routes.show)
+
+app.use(routes)
 // route end......
 
 // catch 404 and forward to error handler
