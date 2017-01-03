@@ -111,7 +111,7 @@ exports.publish = function (req,res) {
     res.redirect('/u/' + currentUser.name)
   })
 }
-
+// 展示用户发布的微博
 exports.show = function (req,res) {
   User.get(req.params.user,function (err,user) {
     if (!user) {
@@ -134,7 +134,7 @@ exports.show = function (req,res) {
     })
   })
 }
-// 展示用户发布的微博
+// 检查是否登录过
 exports.checkLogin = function (req,res,next) {
   if (!req.session.user) {
     req.flash('error','未登陆')
@@ -142,7 +142,7 @@ exports.checkLogin = function (req,res,next) {
   }
   next()
 }
-// 检查是否登录过
+// 检查是否退出
 exports.checkNotLogin = function (req,res,next) {
   if (req.session.user) {
     req.flash('error','已登入')
