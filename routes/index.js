@@ -4,6 +4,10 @@ var User = require('../models/user.js')
 var Post = require('../models/post.js')
 var router = express.Router();
 
+// router.param(['reg', 'login'], function (req, res, next, value) {
+//   console.log('CALLED ONLY ONCE with', value);
+//   next();
+// })
 /* GET home page. */
 router.get('/',function (req,res) {
   Post.get(null,function (err,posts) {
@@ -271,10 +275,15 @@ exports.checkNotLogin = function (req,res,next) {
   }
   next()
 }
-
-exports.logout =  function(req,res) {
+//退出动作
+router.get('/logout',function(req,res) {
   req.session.user = null;
   req.flash('success','退出成功')
   res.redirect('/')
-}
+})
+// exports.logout =  function(req,res) {
+//   req.session.user = null;
+//   req.flash('success','退出成功')
+//   res.redirect('/')
+// }
 module.exports = router

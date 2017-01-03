@@ -82,6 +82,7 @@ app.use(function(req, res, next){
 // app.get('/u/:user',routes.show)
 
 app.use(routes)
+// routes.use(routes.checkNotLogin)
 // route end......
 
 // catch 404 and forward to error handler
