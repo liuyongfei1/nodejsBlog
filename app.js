@@ -56,41 +56,38 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next){
-      console.log("app.usr local");
-      res.locals.user = req.session.user;
-      res.locals.post = req.session.post;
-      var error = req.flash('error');
-      res.locals.error = error.length ? error : null;
-      var success = req.flash('success');
-      res.locals.success = success.length ? success : null;
-      next();
-    });
+  console.log("app.usr local");
+  res.locals.user = req.session.user;
+  res.locals.post = req.session.post;
+  next();
+});
 
 // route start......
-// app.get('/',routes.index)
-// app.get('/reg',routes.checkNotLogin)
-// app.get('/reg',routes.reg)
-// app.post('/post',routes.checkNotLogin)
-// app.post('/reg',routes.doReg)
-// app.get('/login',routes.checkNotLogin)
-// app.get('/login',routes.login)
-// app.get('/login',routes.checkNotLogin)
-// app.post('/login',routes.doLogin)
-// app.get('/logout',routes.checkLogin)
-// app.get('/logout',routes.logout)
-// app.post('/publish',routes.publish)
-// app.get('/u/:user',routes.show)
+app.get('/',routes.index)
+app.get('/reg',routes.checkNotLogin)
+app.get('/reg',routes.reg)
+app.post('/post',routes.checkNotLogin)
+app.post('/reg',routes.doReg)
+app.get('/login',routes.checkNotLogin)
+app.get('/login',routes.login)
+app.get('/login',routes.checkNotLogin)
+app.post('/login',routes.doLogin)
+app.get('/logout',routes.checkLogin)
+app.get('/logout',routes.logout)
+app.post('/publish',routes.publish)
+app.get('/u/:user',routes.show)
 
-// console.log(routes.checkNotLogin)
+// 存放flash,赋给全局变量 注:必须放在route后面，否则比如在login的时候，如果用户名或密码错误，则看不到提示
+app.use(function(req, res, next){
+  console.log("To deal with global session");
+  var error = req.flash('error');
+  res.locals.error = error.length ? error : null;
+  var success = req.flash('success');
+  res.locals.success = success.length ? success : null;
+  next();
+});
 
-// app.use(routes.filterRoute)
-// app.use(function (req,res,next) {
-//   var pathname = url.parse(req.url).pathname
-// })
-
-
-
-app.use(routes) // 意味着对/路径下的所有URL请求都会进行判断
+// app.use(routes) // 意味着对/路径下的所有URL请求都会进行判断
 // route end......
 
 // catch 404 and forward to error handler
