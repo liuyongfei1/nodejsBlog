@@ -18,4 +18,12 @@
 ![发表微博](./public/img/publish.png)
 #### 4.显示微博
 ![显示微博](./public/img/show.png)
-#### 5. 其它功能
+#### 5. 登录密码错误
+在注册成功后，尝试登录时，如果密码错误，则提示:
+![登录密码错误](./public/img/password-error.png)
+
+#### 6. 权限控制
+比如，在未登录的情况下，访问 /logout时，会提示:
+![未登录](./public/img/pri.png)
+
+#### 7. 其它功能
