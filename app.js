@@ -83,6 +83,12 @@ app.use(function(req, res, next){
 // console.log(routes.checkNotLogin)
 
 // app.use(routes.filterRoute)
+// app.use(function (req,res,next) {
+//   var pathname = url.parse(req.url).pathname
+// })
+
+
+
 app.use(routes) // 意味着对/路径下的所有URL请求都会进行判断
 // route end......
 

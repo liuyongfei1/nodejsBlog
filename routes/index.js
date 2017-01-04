@@ -4,6 +4,31 @@ var User = require('../models/user.js')
 var Post = require('../models/post.js')
 var router = express.Router()
 var url = require('url')
+var session = require('express-session')
+router.use(function (req,res,next) {
+  var pathname = url.parse(req.url).pathname
+  console.log('10:' + pathname)
+  // 判断是否登录了
+  if (pathname == '/reg' || pathname == '/publish') {
+    if (req.session.user) {
+      req.flash('error','已登入')
+      return res.redirect('/')
+    }
+  }
+
+  // 判断是否退出了
+  if (pathname == '/logout') {
+    if (req.session.user) {
+      req.flash('error','已登入')
+      return res.redirect('/')
+    }
+    if (!req.session.user) {
+      req.flash('error','未登陆')
+      return res.redirect('/login')
+    }
+  }
+  next()
+})
 
 /* GET home page. */
 router.get('/',function (req,res) {
@@ -267,7 +292,7 @@ var checkNotLogin = function (req,res,next) {
 }
 
 // 检查是否登录过
-var checkLogin = function (req,res,next) {
+exports.checkLogin = function (req,res,next) {
   if (!req.session.user) {
     req.flash('error','未登陆')
     return res.redirect('/login')
@@ -287,24 +312,25 @@ router.get('/logout',function(req,res) {
 //   req.flash('success','退出成功')
 //   res.redirect('/')
 // }
+
 module.exports = router
 
-// 检查是否退出
-module.exports.filterRoute = function (req,res,next) {
-  var pathname = url.parse(req.url).pathname
-  console.log(284)
-  console.log(pathname)
-  console.log(286)
-  // 判断是否登录了
-  if (pathname == '/' || pathname == '/reg' || pathname == '/login') {
-    checkNotLogin()
-  }
-  if (pathname == '/publish' || pathname == '/logout') {
-    checkLogin()
-  }
-  if (req.session.user) {
-    req.flash('error','已登入')
-    return res.redirect('/')
-  }
-  next()
-}
+// // 检查是否退出
+// module.exports.filterRoute = function (req,res,next) {
+//   var pathname = url.parse(req.url).pathname
+//   console.log(284)
+//   console.log(pathname)
+//   console.log(286)
+//   // 判断是否登录了
+//   if (pathname == '/' || pathname == '/reg' || pathname == '/login') {
+//     checkNotLogin()
+//   }
+//   if (pathname == '/publish' || pathname == '/logout') {
+//     checkLogin()
+//   }
+//   if (req.session.user) {
+//     req.flash('error','已登入')
+//     return res.redirect('/')
+//   }
+//   next()
+// }
