@@ -46,6 +46,7 @@ router.get('/',function (req,res) {
     })
   })
 })
+
 // exports.index = function (req, res) {
 //   Post.get(null,function (err,posts) {
 //     if (err) {
@@ -64,9 +65,10 @@ router.get('/',function (req,res) {
 // }
 
 // 用户注册
-router.get('/reg',function (req, res) {
-    res.render('reg', { title: '用户注册' });
+router.get('/reg',function (req,res) {
+  res.render('reg', { title: '用户注册' });
 })
+
 // exports.reg = function (req, res) {
 //     res.render('reg', { title: '用户注册' });
 // }

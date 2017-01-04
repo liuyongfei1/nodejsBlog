@@ -80,6 +80,7 @@ app.use(function(req, res, next){
 // app.get('/logout',routes.logout)
 // app.post('/publish',routes.publish)
 // app.get('/u/:user',routes.show)
+
 // console.log(routes.checkNotLogin)
 
 // app.use(routes.filterRoute)
