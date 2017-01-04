@@ -80,9 +80,10 @@ app.use(function(req, res, next){
 // app.get('/logout',routes.logout)
 // app.post('/publish',routes.publish)
 // app.get('/u/:user',routes.show)
+// console.log(routes.checkNotLogin)
 
-app.use(routes)
-// routes.use(routes.checkNotLogin)
+// app.use(routes.filterRoute)
+app.use(routes) // 意味着对/路径下的所有URL请求都会进行判断
 // route end......
 
 // catch 404 and forward to error handler

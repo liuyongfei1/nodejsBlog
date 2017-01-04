@@ -2,12 +2,9 @@ var express = require('express');
 var crypto = require('crypto')
 var User = require('../models/user.js')
 var Post = require('../models/post.js')
-var router = express.Router();
+var router = express.Router()
+var url = require('url')
 
-// router.param(['reg', 'login'], function (req, res, next, value) {
-//   console.log('CALLED ONLY ONCE with', value);
-//   next();
-// })
 /* GET home page. */
 router.get('/',function (req,res) {
   Post.get(null,function (err,posts) {
@@ -259,31 +256,55 @@ router.get('/u/:user',function (req,res) {
 //     })
 //   })
 // }
-// 检查是否登录过
-exports.checkLogin = function (req,res,next) {
-  if (!req.session.user) {
-    req.flash('error','未登陆')
-    return res.redirect('/login')
-  }
-  next()
-}
+
 // 检查是否退出
-exports.checkNotLogin = function (req,res,next) {
+var checkNotLogin = function (req,res,next) {
   if (req.session.user) {
     req.flash('error','已登入')
     return res.redirect('/')
   }
   next()
 }
+
+// 检查是否登录过
+var checkLogin = function (req,res,next) {
+  if (!req.session.user) {
+    req.flash('error','未登陆')
+    return res.redirect('/login')
+  }
+  next()
+}
+
 //退出动作
 router.get('/logout',function(req,res) {
   req.session.user = null;
   req.flash('success','退出成功')
   res.redirect('/')
 })
+
 // exports.logout =  function(req,res) {
 //   req.session.user = null;
 //   req.flash('success','退出成功')
 //   res.redirect('/')
 // }
 module.exports = router
+
+// 检查是否退出
+module.exports.filterRoute = function (req,res,next) {
+  var pathname = url.parse(req.url).pathname
+  console.log(284)
+  console.log(pathname)
+  console.log(286)
+  // 判断是否登录了
+  if (pathname == '/' || pathname == '/reg' || pathname == '/login') {
+    checkNotLogin()
+  }
+  if (pathname == '/publish' || pathname == '/logout') {
+    checkLogin()
+  }
+  if (req.session.user) {
+    req.flash('error','已登入')
+    return res.redirect('/')
+  }
+  next()
+}
