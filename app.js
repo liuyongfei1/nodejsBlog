@@ -43,6 +43,9 @@ app.use(flash());
 
 // app.use(app.router)
 // app.use(router)
+// express.static是内置的中间件
+// express.static(root,[options]) 这个函数是基于为静态,并负责提供静态资产如HTML文件,图片,等等。
+// root参数指定静态文件的根目录
 app.use(express.static(__dirname + '/public'))
 
 // 启用layout
