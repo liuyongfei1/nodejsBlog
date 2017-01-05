@@ -3,6 +3,40 @@ var crypto = require('crypto')
 var User = require('../models/user.js')
 var Post = require('../models/post.js')
 var router = express.Router()
+var url = require('url')
+
+// 检查是否没有登录
+var checkNotLogin = function (req,res,next) {
+  if (req.session.user) {
+    req.flash('error','已登入')
+    return res.redirect('/')
+  }
+  next()
+}
+
+// 检查是否登录
+var checkLogin = function (req,res,next) {
+  if (!req.session.user) {
+    req.flash('error','未登陆')
+    return res.redirect('/login')
+  }
+  next()
+}
+
+// 写公共的路由中间件
+router.use(function (req, res, next) {
+  var pathname = url.parse(req.url).pathname
+
+  console.log('action:', pathname)
+  console.log('Time:', Date.now())
+  // 调用next(“route”)，则会跳过当前路由的其它中间件，直接将控制权交给下一个路由。
+  if (pathname == '/reg') next('route')
+   // otherwise pass control to the next middleware function in this stack
+  else next()
+},function (req, res, next) {
+  console.log(35)
+  next()
+})
 
 /* GET home page. */
 router.get('/',function (req, res) {
@@ -38,7 +72,8 @@ router.get('/',function (req, res) {
 // }
 
 // 用户注册
-router.get('/reg',function (req, res) {
+router.get('/reg',function (req, res,next) {
+  console.log(75)
     res.render('reg', {
       title: '用户注册',
       user : req.session.user,
@@ -271,23 +306,5 @@ router.get('/login',function(req,res) {
 //   req.flash('success','退出成功')
 //   res.redirect('/')
 // }
-
-// 检查是否没有登录
-exports.checkNotLogin = function (req,res,next) {
-  if (req.session.user) {
-    req.flash('error','已登入')
-    return res.redirect('/')
-  }
-  next()
-}
-
-// 检查是否登录
-exports.checkLogin = function (req,res,next) {
-  if (!req.session.user) {
-    req.flash('error','未登陆')
-    return res.redirect('/login')
-  }
-  next()
-}
 
 module.exports = router
