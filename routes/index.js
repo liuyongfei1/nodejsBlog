@@ -25,8 +25,9 @@ var checkLogin = function (req,res,next) {
 
 // 写公共的路由中间件
 router.use(function (req, res, next) {
-  console.log(req)
-  console.log('Request URL:', req.baseUrl)
+  // console.log(req.originalUrl); // '/admin/new'
+  // console.log(req.baseUrl); // '/admin'
+  // console.log(req.path); // '/new'
   next()
 }, function (req, res, next) {
   console.log('Request Type:', req.method)
@@ -245,11 +246,20 @@ router.post('/publish',function (req,res) {
 //   })
 // }
 // 展示用户发布的微博
+// 写一个判断用户是否具有查看微博的权限：必须登录
+router.get('/u/:user',function (req,res,next) {
+  if (req.session.user == null) {
+    req.flash('error','您还未登录,请登录!')
+    res.redirect('/login')
+  }
+  else next()
+})
 router.get('/u/:user',function (req,res) {
+  // 注意:req.params.user是从get请求的参数:user的值
   User.get(req.params.user,function (err,user) {
     if (!user) {
       req.flash('error','用户不存在')
-      return redirect('/')
+      return res.redirect('/')
     }
     Post.get(user.name,function (err,posts) {
       if (err) {
@@ -290,7 +300,7 @@ router.get('/u/:user',function (req,res) {
 //   })
 // }
 // 退出动作
-router.get('/login',function(req,res) {
+router.get('/logout',function(req,res) {
   req.session.user = null;
   req.flash('success','退出成功')
   res.redirect('/')
