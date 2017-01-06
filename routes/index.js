@@ -25,16 +25,11 @@ var checkLogin = function (req,res,next) {
 
 // 写公共的路由中间件
 router.use(function (req, res, next) {
-  var pathname = url.parse(req.url).pathname
-
-  console.log('action:', pathname)
-  console.log('Time:', Date.now())
-  // 调用next(“route”)，则会跳过当前路由的其它中间件，直接将控制权交给下一个路由。
-  if (pathname == '/reg') next('route')
-   // otherwise pass control to the next middleware function in this stack
-  else next()
-},function (req, res, next) {
-  console.log(35)
+  console.log(req)
+  console.log('Request URL:', req.baseUrl)
+  next()
+}, function (req, res, next) {
+  console.log('Request Type:', req.method)
   next()
 })
 
@@ -73,7 +68,6 @@ router.get('/',function (req, res) {
 
 // 用户注册
 router.get('/reg',function (req, res,next) {
-  console.log(75)
     res.render('reg', {
       title: '用户注册',
       user : req.session.user,
@@ -251,7 +245,7 @@ router.post('/publish',function (req,res) {
 //   })
 // }
 // 展示用户发布的微博
-router.get('show',function (req,res) {
+router.get('/u/:user',function (req,res) {
   User.get(req.params.user,function (err,user) {
     if (!user) {
       req.flash('error','用户不存在')
