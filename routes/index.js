@@ -5,8 +5,8 @@ var Post = require('../models/post.js')
 var router = express.Router()
 var url = require('url')
 
-// 检查是否没有登录
-var checkNotLogin = function (req,res,next) {
+// 不需要登录,当访问index,login或reg等操作时，调用
+var checkNotNeedLogin = function (req,res,next) {
   if (req.session.user) {
     req.flash('error','已登入')
     return res.redirect('/')
@@ -14,8 +14,8 @@ var checkNotLogin = function (req,res,next) {
   next()
 }
 
-// 检查是否登录
-var checkLogin = function (req,res,next) {
+// 检查是否登录,当访问需要登录后才能进行的操作时比如查看留言时，调用
+var checkNeedLogin = function (req,res,next) {
   if (!req.session.user) {
     req.flash('error','未登陆')
     return res.redirect('/login')
@@ -24,17 +24,18 @@ var checkLogin = function (req,res,next) {
 }
 
 // 写公共的路由中间件
-router.use(function (req, res, next) {
-  // console.log(req.originalUrl); // '/admin/new'
-  // console.log(req.baseUrl); // '/admin'
-  // console.log(req.path); // '/new'
-  next()
-}, function (req, res, next) {
-  console.log('Request Type:', req.method)
-  next()
-})
+// router.use(function (req, res, next) {
+//   console.log(req.originalUrl); // '/admin/new'
+//   console.log(req.baseUrl); // '/admin'
+//   console.log(req.path); // '/new'
+//   next()
+// }, function (req, res, next) {
+//   console.log('Request Type:', req.method)
+//   next()
+// })
 
 /* GET home page. */
+// router.get('/',checkNotNeedLogin) //加上后会redirect死循环
 router.get('/',function (req, res) {
   Post.get(null,function (err,posts) {
     if (err) {
@@ -68,6 +69,7 @@ router.get('/',function (req, res) {
 // }
 
 // 用户注册
+router.get('/reg',checkNotNeedLogin)
 router.get('/reg',function (req, res,next) {
     res.render('reg', {
       title: '用户注册',
@@ -84,6 +86,7 @@ router.get('/reg',function (req, res,next) {
 //       error : req.flash('error').toString()
 //     });
 // }
+router.post('/reg',checkNotNeedLogin)
 router.post('/reg',function(req, res) {
   //检查密码
     if (req.body['password-repeat'] != req.body['password']) {
@@ -161,6 +164,7 @@ router.post('/reg',function(req, res) {
 //
 // }
 // 用户登录
+router.get('/login',checkNotNeedLogin)
 router.get('/login',function (req,res) {
   res.render('login',{
     title : '用户登录',
@@ -178,6 +182,7 @@ router.get('/login',function (req,res) {
 //     error : req.flash('error').toString()
 //   })
 // }
+router.post('/login',checkNotNeedLogin)
 router.post('/login',function (req,res) {
   // 生成散列值
   var md5 = crypto.createHash('md5')
@@ -247,13 +252,14 @@ router.post('/publish',function (req,res) {
 // }
 // 展示用户发布的微博
 // 写一个判断用户是否具有查看微博的权限：必须登录
-router.get('/u/:user',function (req,res,next) {
-  if (req.session.user == null) {
-    req.flash('error','您还未登录,请登录!')
-    res.redirect('/login')
-  }
-  else next()
-})
+// router.get('/u/:user',function (req,res,next) {
+//   if (req.session.user == null) {
+//     req.flash('error','您还未登录,请登录!')
+//     res.redirect('/login')
+//   }
+//   else next()
+// })
+router.get('/u/:user',checkNeedLogin)
 router.get('/u/:user',function (req,res) {
   // 注意:req.params.user是从get请求的参数:user的值
   User.get(req.params.user,function (err,user) {
@@ -300,6 +306,7 @@ router.get('/u/:user',function (req,res) {
 //   })
 // }
 // 退出动作
+router.get('/logout',checkNeedLogin)
 router.get('/logout',function(req,res) {
   req.session.user = null;
   req.flash('success','退出成功')
