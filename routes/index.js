@@ -7,7 +7,8 @@ var router = express.Router()
 var url = require('url')
 
 // 写公共的路由中间件
-router.use(function (req, res, next) {
+// 判断访问该路由的权限
+var filterRoute = function (req,res,next) {
   // 如果已经登录过，则不能再访问登录页或注册页
   if (req.path == '/login' || req.path == '/reg') {
     if (req.session.user) {
@@ -25,7 +26,9 @@ router.use(function (req, res, next) {
     next()
   }
   else next()
-})
+}
+// 使用中间件
+router.use(filterRoute)
 
 /* GET home page. */
 // router.get('/',checkNotNeedLogin) //加上后会redirect死循环
