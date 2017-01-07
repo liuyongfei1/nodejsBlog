@@ -66,7 +66,7 @@ app.use(function(req, res, next){
 });
 
 // route start......
-app.use(routes)
+app.use(routes) // 意味着对/路径下的所有URL请求都会进行判断
 
 // 存放flash,赋给全局变量 注:必须放在route后面，否则比如在login的时候，如果用户名或密码错误，则看不到提示
 app.use(function(req, res, next){
@@ -77,8 +77,6 @@ app.use(function(req, res, next){
   res.locals.success = success.length ? success : null;
   next();
 });
-
-// app.use(routes) // 意味着对/路径下的所有URL请求都会进行判断
 // route end......
 
 // catch 404 and forward to error handler
@@ -89,10 +87,14 @@ app.use(function(req, res, next) {
 })
 
 // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   // res.locals.message = err.message;
-//   // res.locals.error = req.app.get('env') === 'development' ? err : {};
-// });
+// 处理所有error请求,并加载error页面，显示错误信息
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  // res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.render('error', {
+    title : 'Not Found',
+    error : err
+  })
+});
 
 module.exports = app;

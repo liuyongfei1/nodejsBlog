@@ -46,11 +46,10 @@ router.get('/',function (req, res) {
 			error : req.flash('error').toString()
     })
   })
-
 })
 
 // 用户注册
-router.get('/reg',function (req, res,next) {
+router.get('/reg',function (req, res) {
     res.render('reg', {
       title: '用户注册',
       user : req.session.user,
@@ -95,7 +94,6 @@ router.post('/reg',function(req, res) {
         res.redirect('/')
       })
     })
-
 })
 
 // 用户登录
@@ -106,8 +104,7 @@ router.get('/login',function (req,res) {
     success : req.flash('success').toString(),
     error : req.flash('error').toString()
   })
-}
-)
+})
 
 router.post('/login',function (req,res) {
   // 生成散列值
@@ -176,5 +173,4 @@ router.get('/logout',function(req,res) {
   req.flash('success','退出成功')
   res.redirect('/')
 })
-
 module.exports = router
