@@ -33,4 +33,7 @@
 
 #### 7. 优化路由
 通过express.router和写公共中间件来优化路由
+#### 8. 优化errHander
+当在测试环境下出现错误的路由时，会出现智能提示，显示错误信息
+![errorHander](./public/img/error.png)
 #### 8. 其它功能

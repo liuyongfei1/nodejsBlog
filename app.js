@@ -90,7 +90,7 @@ app.use(function(req, res, next) {
 // 处理所有error请求,并加载error页面，显示错误信息
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
-  // res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
   res.render('error', {
     title : 'Not Found',
     error : err
