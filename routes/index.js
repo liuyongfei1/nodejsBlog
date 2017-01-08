@@ -26,6 +26,12 @@ var filterRoute = function (req,res,next) {
   }
   else next()
 }
+
+// 或者使用这种方法
+// app.use(['/abcd', '/xyza', /\/lmn|\/pqr/], function (req, res, next) {
+// next();
+// })
+
 // 使用中间件
 router.use(filterRoute)
 

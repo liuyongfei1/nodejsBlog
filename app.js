@@ -12,7 +12,7 @@ var MongoStore = require('connect-mongo')(session)
 var methodOverride = require('method-override');
 var flash = require('connect-flash')
 
-var router = require('./routes/index')
+var routes = require('./routes/index')
 
 var app = express();
 
@@ -63,7 +63,7 @@ app.use(function(req, res, next){
 });
 
 // route start......
-app.use(router) // 意味着对/路径下的所有URL请求都会进行判断
+app.use(routes) // 意味着对/路径下的所有URL请求都会进行判断
 
 // 存放flash,赋给全局变量 注:必须放在route后面，否则比如在login的时候，如果用户名或密码错误，则看不到提示
 app.use(function(req, res, next){
