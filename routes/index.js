@@ -4,7 +4,6 @@ var crypto = require('crypto')
 var User = require('../models/user.js')
 var Post = require('../models/post.js')
 var router = express.Router()
-var url = require('url')
 
 // 写公共的路由中间件
 // 判断访问该路由的权限
