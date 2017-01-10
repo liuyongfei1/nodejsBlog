@@ -1,9 +1,6 @@
-var express = require('express')
-var app = express()
-var crypto = require('crypto')
-var User = require('../models/user.js')
+// var crypto = require('crypto')
+// var User = require('../models/user.js')
 var Post = require('../models/post.js')
-var router = express.Router()
 
 // // 写公共的路由中间件
 // // 判断访问该路由的权限
@@ -37,19 +34,43 @@ var router = express.Router()
 
 /* GET home page. */
 // router.get('/',checkNotNeedLogin) //加上后会redirect死循环
-router.get('/',function (req, res) {
-  Post.get(null,function (err,posts) {
-    if (err) {
-      posts = []
-    }
-    res.render('index',
-    {
-      title: '首页',
-      posts : posts,
-			user : req.session.user,
-			success : req.flash('success').toString(),
-			error : req.flash('error').toString()
+// router.get('/',function (req, res) {
+//   Post.get(null,function (err,posts) {
+//     if (err) {
+//       posts = []
+//     }
+//     res.render('index',
+//     {
+//       title: '首页',
+//       posts : posts,
+// 			user : req.session.user,
+// 			success : req.flash('success').toString(),
+// 			error : req.flash('error').toString()
+//     })
+//   })
+// })
+//
+// module.exports = router
+
+module.exports = function (app) {
+  app.get('/',function (req, res) {
+    console.log(57)
+    Post.get(null,function (err,posts) {
+      if (err) {
+        posts = []
+      }
+      res.render('index',
+      {
+        title: '首页',
+        posts : posts,
+  			user : req.session.user,
+  			success : req.flash('success').toString(),
+  			error : req.flash('error').toString()
+      })
     })
   })
-})
-module.exports = router
+  app.use('/reg',require('./reg'))
+  app.use('/login',require('./login'))
+  app.use('/logout',require('./logout'))
+  app.use('/publish',require('./publish'))
+}

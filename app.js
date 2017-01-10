@@ -7,14 +7,12 @@ var bodyParser = require('body-parser');
 var partials = require('express-partials');
 
 var settings = require('./setting')
-var session = require('express-session')
-var MongoStore = require('connect-mongo')(session)
+var session = require('express-session') // session中间件
+var MongoStore = require('connect-mongo')(session) // 将 session 存储于 mongodb，结合 express-session 使用
 var methodOverride = require('method-override');
-var flash = require('connect-flash')
+var flash = require('connect-flash') // 页面通知提示的中间件，基于 session 实现
 
-var indexRouter = require('./routes/index')
-var userRouter = require('./routes/user')
-
+var routes = require('./routes')
 var app = express();
 
 // view engine setup
@@ -25,6 +23,8 @@ app.set('trust proxy', 1) // trust first proxy
 app.use(require('body-parser').urlencoded({extended: true}))
 app.use(methodOverride())
 app.use(cookieParser())
+
+// session中间件
 // 提供会话支持，设置它的store参数为MongoStore实例，把会话信息存储到数据库中去，以避免数据丢失
 app.use(session({
   secret : settings.cookieSecret,
@@ -39,6 +39,7 @@ app.use(session({
   saveUninitialized : false,
 }))
 
+// flash中间件，用来显示通知信息
 app.use(flash());
 
 // express.static是内置的中间件
@@ -63,31 +64,11 @@ app.use(function(req, res, next){
   next();
 });
 
-// 写公共的路由中间件
-// 判断访问该路由的权限
-var filterRoute = function (req,res,next) {
-  // 如果已经登录过，则不能再访问登录页或注册页
-  if (req.path == '/login' || req.path == '/reg') {
-    if (req.session.user) {
-      req.flash('error','已登入')
-      return res.redirect('/')
-    }
-    next()
-  }
-  // 如果没有登录，则不能查看显示微博信息的页面
-  else if (req.path.match(/^\/u\/\w*/)) {
-    if (!req.session.user) {
-      req.flash('error','未登陆')
-      return res.redirect('/login')
-    }
-    next()
-  }
-  else next()
-}
-app.use(filterRoute)
 // route start......
-app.use(indexRouter) // 意味着对/路径下的所有URL请求都会进行判断
-app.use(userRouter)
+// app.use(indexRouter) // 意味着对/路径下的所有URL请求都会进行判断
+// app.use(userRouter)
+routes(app)
+
 
 // 存放flash,赋给全局变量 注:必须放在route后面，否则比如在login的时候，如果用户名或密码错误，则看不到提示
 app.use(function(req, res, next){
