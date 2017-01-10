@@ -18,11 +18,11 @@
 ![发表微博](./public/img/publish.png)
 #### 4.显示微博
 ![显示微博](./public/img/show.png)
-#### 5. 登录密码错误
+#### 5.登录密码错误
 在注册成功后，尝试登录时，如果密码错误，则提示:
 ![登录密码错误](./public/img/password-error.png)
 
-#### 6. 权限控制
+#### 6.权限控制
 比如，在未登录的情况下，
 - 访问 /logout时，会提示:
 ![未登录](./public/img/pri.png)
@@ -31,9 +31,9 @@
 - 手动输入 /login后，不让render 登录页面，且提示已经登录
 - 手动输入 /reg 后，不让render 注册页面，且提示已经登录
 
-#### 7. 优化路由
+#### 7.优化路由
 通过express.router和写公共中间件来优化路由
-#### 8. 优化errHander
+#### 8.优化errHander
 当在测试环境下出现错误的路由时，会出现智能提示，显示错误信息
 ![errorHander](./public/img/error.png)
-#### 8. 其它功能
+#### 9.其它功能
