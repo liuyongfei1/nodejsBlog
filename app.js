@@ -12,7 +12,8 @@ var MongoStore = require('connect-mongo')(session)
 var methodOverride = require('method-override');
 var flash = require('connect-flash')
 
-var routes = require('./routes/index')
+var indexRouter = require('./routes/index')
+var userRouter = require('./routes/user')
 
 var app = express();
 
@@ -62,8 +63,31 @@ app.use(function(req, res, next){
   next();
 });
 
+// 写公共的路由中间件
+// 判断访问该路由的权限
+var filterRoute = function (req,res,next) {
+  // 如果已经登录过，则不能再访问登录页或注册页
+  if (req.path == '/login' || req.path == '/reg') {
+    if (req.session.user) {
+      req.flash('error','已登入')
+      return res.redirect('/')
+    }
+    next()
+  }
+  // 如果没有登录，则不能查看显示微博信息的页面
+  else if (req.path.match(/^\/u\/\w*/)) {
+    if (!req.session.user) {
+      req.flash('error','未登陆')
+      return res.redirect('/login')
+    }
+    next()
+  }
+  else next()
+}
+app.use(filterRoute)
 // route start......
-app.use(routes) // 意味着对/路径下的所有URL请求都会进行判断
+app.use(indexRouter) // 意味着对/路径下的所有URL请求都会进行判断
+app.use(userRouter)
 
 // 存放flash,赋给全局变量 注:必须放在route后面，否则比如在login的时候，如果用户名或密码错误，则看不到提示
 app.use(function(req, res, next){
