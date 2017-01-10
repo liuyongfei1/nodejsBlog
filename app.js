@@ -104,7 +104,8 @@ app.use(function(req, res, next){
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
-  next(err);
+  next(err); // 如果使用了 next(error)，则会返回错误而不会传递到下一个中间件;
+  // next('router') // 如果调用next('router')，则会跳过当前路由的其它中间件，直接将控制权交给下一个路由
 })
 
 // error handler
