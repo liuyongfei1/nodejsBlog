@@ -11,7 +11,7 @@ var session = require('express-session') // session中间件
 var MongoStore = require('connect-mongo')(session) // 将 session 存储于 mongodb，结合 express-session 使用
 var methodOverride = require('method-override');
 var flash = require('connect-flash') // 页面通知提示的中间件，基于 session 实现
-
+var formidable = require('express-formidable')
 var routes = require('./routes')
 var app = express();
 
@@ -43,19 +43,26 @@ app.use(session({
 app.use(flash());
 
 // express.static是内置的中间件
-// express.static(root,[options]) 这个函数是基于为静态,并负责提供静态资产如HTML文件,图片,等等。
+// express.static(root,[options]) 这个函数是基于伪静态,并负责提供静态资产如HTML文件,图片,等等。
 // root参数指定静态文件的根目录
 app.use(express.static(__dirname + '/public'))
 
 // 启用layout
 app.use(partials());
+
+// 处理表单及文件上传的中间件
+// app.use(formidable({
+//   uploadDir: path.join(__dirname, 'public/img'),// 上传文件目录
+//   keepExtensions: true// 保留后缀
+// }))
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next){
   console.log("app.usr local");
@@ -68,7 +75,6 @@ app.use(function(req, res, next){
 // app.use(indexRouter) // 意味着对/路径下的所有URL请求都会进行判断
 // app.use(userRouter)
 routes(app)
-
 
 // 存放flash,赋给全局变量 注:必须放在route后面，否则比如在login的时候，如果用户名或密码错误，则看不到提示
 app.use(function(req, res, next){

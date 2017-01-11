@@ -14,7 +14,7 @@ router.get('/',checkLogin,function (req,res) {
       return res.redirect('/')
     }
     req.flash('success','发表成功')
-    res.redirect('/u/' + currentUser.name)
+    res.redirect('/posts/' + currentUser.name)
   })
 })
 
@@ -27,7 +27,7 @@ router.post('/',checkLogin,function (req,res) {
       return res.redirect('/')
     }
     req.flash('success','发表成功')
-    res.redirect('/publish/' + currentUser.name)
+    res.redirect('/posts/' + currentUser.name)
   })
 })
 
