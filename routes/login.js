@@ -7,10 +7,7 @@ var User = require('../models/user.js')
 // GET /login
 router.get('/',checkNotLogin,function (req,res,next) {
   res.render('login',{
-    title : '用户登录',
-    user : req.session.user,
-    success : req.flash('success').toString(),
-    error : req.flash('error').toString()
+    title : '用户登录'
   })
 })
 

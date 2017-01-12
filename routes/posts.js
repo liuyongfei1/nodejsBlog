@@ -47,10 +47,7 @@ router.get('/:user',function (req,res) {
 
       res.render('user',{
         title : user.name,
-        posts: posts,
-				user : req.session.user,
-				success : req.flash('success').toString(),
-				error : req.flash('error').toString()
+        posts: posts
       })
     })
   })

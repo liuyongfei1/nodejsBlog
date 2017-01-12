@@ -10,10 +10,7 @@ var app = express()
 // 用户注册
 router.get('/',checkNotLogin,function (req, res, next) {
     res.render('reg', {
-      title: '用户注册',
-      // user : req.session.user,
-      // success : req.flash('success').toString(),
-      // error : req.flash('error').toString()
+      title: '用户注册'
     });
 })
 
@@ -75,10 +72,7 @@ router.post('/',checkNotLogin,function(req, res, next) {
     gender : gender,
     intro : intro,
     avatar : avatar
-  };
-  console.log(68)
-  console.dir(info)
-  console.log(69)
+  }
 
   // 将写入数据库的用户信息
   var newUser = new User(info)

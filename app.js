@@ -74,7 +74,6 @@ global.rootPath = __dirname
 // 添加模板必需的三个变量
 app.use(function (req, res, next) {
   console.log("app.usr local");
-  // console.log(app.locals.blog.rootPath)
   res.locals.user = req.session.user;
   res.locals.success = req.flash('success').toString();
   res.locals.error = req.flash('error').toString();
