@@ -15,18 +15,20 @@ var formidable = require('express-formidable')
 var routes = require('./routes')
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
+// 设置模板目录
+app.set('views', path.join(__dirname, 'views'))
+// 设置模板引擎为 ejs
 app.set('view engine', 'ejs');
-
-app.set('trust proxy', 1) // trust first proxy
-// app.use(require('body-parser').urlencoded({extended: true}))
-app.use(methodOverride())
-app.use(cookieParser())
 // express.static是内置的中间件
 // express.static(root,[options]) 这个函数是基于伪静态,并负责提供静态资产如HTML文件,图片,等等。
 // root参数指定静态文件的根目录
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')))
+
+
+// app.set('trust proxy', 1) // trust first proxy
+// app.use(require('body-parser').urlencoded({extended: true}))
+// app.use(methodOverride())
+// app.use(cookieParser())
 
 // 启用layout
 app.use(partials());
@@ -50,23 +52,32 @@ app.use(session({
 app.use(flash());
 
 // 处理表单及文件上传的中间件
-app.use(formidable({
-  uploadDir: path.join(__dirname, 'public/upload/img'),// 上传文件目录
-  keepExtensions: true// 保留后缀
-}))
+// app.use(formidable({
+//   uploadDir: path.join(__dirname, 'public/upload/img'),// 上传文件目录
+//   keepExtensions: true// 保留后缀
+// }))
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+// app.use(logger('dev'));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(cookieParser());
 
-
-app.use(function(req, res, next){
+// 设置模板全局常量,用来挂载常量信息，比如：博客名，描述，作者信息等
+// app.locals.blog = {
+  // title: pkg.name,
+  // description: pkg.description
+  // rootPath : __dirname
+// };
+global.rootPath = __dirname
+// 添加模板必需的三个变量
+app.use(function (req, res, next) {
   console.log("app.usr local");
+  // console.log(app.locals.blog.rootPath)
   res.locals.user = req.session.user;
-  res.locals.post = req.session.post;
+  res.locals.success = req.flash('success').toString();
+  res.locals.error = req.flash('error').toString();
   next();
 });
 
@@ -76,14 +87,14 @@ app.use(function(req, res, next){
 routes(app)
 
 // 存放flash,赋给全局变量 注:必须放在route后面，否则比如在login的时候，如果用户名或密码错误，则看不到提示
-app.use(function(req, res, next){
-  console.log("To deal with global session");
-  var error = req.flash('error');
-  res.locals.error = error.length ? error : null;
-  var success = req.flash('success');
-  res.locals.success = success.length ? success : null;
-  next();
-});
+// app.use(function(req, res, next){
+//   console.log("To deal with global session");
+//   var error = req.flash('error');
+//   res.locals.error = error.length ? error : null;
+//   var success = req.flash('success');
+//   res.locals.success = success.length ? success : null;
+//   next();
+// });
 // route end......
 
 // catch 404 and forward to error handler

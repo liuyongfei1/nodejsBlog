@@ -10,9 +10,9 @@ module.exports = function (app) {
       {
         title: '首页',
         posts : posts,
-  			user : req.session.user,
-  			success : req.flash('success').toString(),
-  			error : req.flash('error').toString()
+  			// user : req.session.user,
+  			// success : req.flash('success').toString(),
+  			// error : req.flash('error').toString()
       })
     })
   })
