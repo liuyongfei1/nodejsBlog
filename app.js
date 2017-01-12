@@ -20,9 +20,16 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.set('trust proxy', 1) // trust first proxy
-app.use(require('body-parser').urlencoded({extended: true}))
+// app.use(require('body-parser').urlencoded({extended: true}))
 app.use(methodOverride())
 app.use(cookieParser())
+// express.static是内置的中间件
+// express.static(root,[options]) 这个函数是基于伪静态,并负责提供静态资产如HTML文件,图片,等等。
+// root参数指定静态文件的根目录
+app.use(express.static(path.join(__dirname, 'public')));
+
+// 启用layout
+app.use(partials());
 
 // session中间件
 // 提供会话支持，设置它的store参数为MongoStore实例，把会话信息存储到数据库中去，以避免数据丢失
@@ -42,19 +49,11 @@ app.use(session({
 // flash中间件，用来显示通知信息
 app.use(flash());
 
-// express.static是内置的中间件
-// express.static(root,[options]) 这个函数是基于伪静态,并负责提供静态资产如HTML文件,图片,等等。
-// root参数指定静态文件的根目录
-app.use(express.static(__dirname + '/public'))
-
-// 启用layout
-app.use(partials());
-
 // 处理表单及文件上传的中间件
-// app.use(formidable({
-//   uploadDir: path.join(__dirname, 'public/img'),// 上传文件目录
-//   keepExtensions: true// 保留后缀
-// }))
+app.use(formidable({
+  uploadDir: path.join(__dirname, 'public/upload/img'),// 上传文件目录
+  keepExtensions: true// 保留后缀
+}))
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -62,7 +61,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use(function(req, res, next){
   console.log("app.usr local");

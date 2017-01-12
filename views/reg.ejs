@@ -22,7 +22,7 @@
     </div>
   </div>
 </div>
-<form class="form-horizontal" method="post">
+<form class="form-horizontal" method="post" enctype="multipart/form-data">
   <fieldset>
     <legend>用户注册</legend>
     <div class="control-group">
@@ -41,9 +41,35 @@
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label" for="password-repeat">重复密码</label>
+      <label class="control-label" for="repassword">重复密码</label>
+      <p class="text-danger" style="color:red">*</p>
       <div class="controls">
-        <input type="password" class="input-xlarge" id="password-repeat" name="password-repeat">
+        <input type="password" class="input-xlarge" id="repassword" name="repassword">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="gender">性别</label>
+      <p class="text-danger" style="color:red">*</p>
+      <div class="controls">
+        <select class="form-control" name="gender">
+          <option value="m">男</option>
+          <option value="f">女</option>
+          <option value="x">保密</option>
+        </select>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="exampleInputFile">头像</label>
+      <p class="text-danger" style="color:red">*</p>
+      <div class="controls">
+        <input type="file" id="exampleInputFile" name= "avatar">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="introduction">简介</label>
+      <p class="text-danger" style="color:red">*</p>
+      <div class="controls">
+        <textarea class="form-control" rows="3" id="introduction" name="intro"></textarea>
       </div>
     </div>
     <div class="form-actions">
