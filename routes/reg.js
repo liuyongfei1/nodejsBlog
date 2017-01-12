@@ -1,3 +1,4 @@
+var fs = require('fs');
 var express = require('express')
 var router = express.Router()
 var crypto = require('crypto')
@@ -60,7 +61,7 @@ router.post('/',checkNotLogin,function(req, res, next) {
     // 注册失败，删除异步上传的头像
     fs.unlink(req.files.avatar.path)
     req.flash('error',e.message)
-    return res.redirect('/reg111');
+    return res.redirect('/reg');
   }
 
   // //生成md5的密码
@@ -81,7 +82,7 @@ router.post('/',checkNotLogin,function(req, res, next) {
 
   // 将写入数据库的用户信息
   var newUser = new User(info)
-  
+
   // 检查用户名是否已经存在
   User.get(newUser.name,function (err,user) {
     if (user)
