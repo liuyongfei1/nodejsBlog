@@ -7,6 +7,7 @@ var checkNotLogin = require('../middlewares/check').checkNotLogin
 var formidable = require('express-formidable')
 var path = require('path')
 var app = express()
+
 // 用户注册
 router.get('/',checkNotLogin,function (req, res, next) {
     res.render('reg', {
@@ -27,8 +28,7 @@ router.post('/',checkNotLogin,function(req, res, next) {
   var repassword = req.fields.repassword
   var gender = req.fields.gender
   var intro = req.fields.intro
-  var avatar = req.files
-  var avatar = req.files.avatar.path.split(path.sep).pop()
+  var avatar = req.files.avatar.path.split(path.sep).pop() // 获取上传头像的名字
 
   // 校验参数
   try {
