@@ -20,7 +20,24 @@ router.get('/create',checkLogin,function (req,res,next) {
 
 router.post('/',checkLogin,function (req,res) {
   var currentUser = req.session.user
-  var post = new Post(currentUser.name,req.body.post,req.body.title,req.body.pv)
+  var author = currentUser.name
+  var title = req.body.title
+  var content = req.body.content
+
+  // 校验参数
+  try {
+    if (!title.length) {
+      throw new Error('请填写标题')
+    }
+    if (!content.length) {
+      throw new Error('请填写内容')
+    }
+  } catch (e) {
+    req.flash('error',e.message)
+    return res.redirect('back')
+  }
+
+  var post = new Post(author,title,content)
   post.save(function (err) {
     if (err) {
       req.flash('error',err)
@@ -29,6 +46,13 @@ router.post('/',checkLogin,function (req,res) {
     req.flash('success','发表成功')
     res.redirect('/posts/' + currentUser.name)
   })
+  // .then(function (result) {
+  //   // 此 post 是插入 mongodb 后的值，包含 _id
+  //     post = result.ops[0];
+  //     req.flash('success', '发表成功');
+  //     // 发表成功后跳转到该文章页
+  //     res.redirect(`/posts/${post._id}`);
+  // })
 })
 
 // 展示用户发布的微博

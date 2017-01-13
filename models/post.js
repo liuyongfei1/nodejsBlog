@@ -1,9 +1,9 @@
 var mongodb = require('./db')
-function Post (username,post,title,pv,time) {
+function Post (username,title,post,time) {
   this.user = username
-  this.post = post
   this.title = title
-  this.pv = pv
+  this.post = post
+  this.pv = 0
   if (time) {
     this.time = time
   } else {
