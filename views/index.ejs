@@ -1,3 +1,4 @@
+<% include header.ejs %>
 <% if (!user) { %>
 <div class="hero-unit">
     <h1>欢迎来到 Blog</h1>
@@ -10,4 +11,4 @@
 <% } else { %>
    <%- partial('say') %>
 <% } %>
-<%- partial('posts', {posts:posts}) %>
+<% include footer.ejs %>

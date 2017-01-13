@@ -1,7 +1,9 @@
 var mongodb = require('./db')
-function Post (username,post,time) {
+function Post (username,post,title,pv,time) {
   this.user = username
   this.post = post
+  this.title = title
+  this.pv = pv
   if (time) {
     this.time = time
   } else {
@@ -16,6 +18,8 @@ Post.prototype.save = function (callback) {
   var post = {
     user: this.user,
     post: this.post,
+    title: this.title,
+    pv:this.pv,
     time: this.time
   }
   mongodb.open(function (err,db){
@@ -77,6 +81,4 @@ Post.get = function get(username,callback) {
     })
 	 })
   })
-
-
 }

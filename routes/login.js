@@ -13,6 +13,7 @@ router.get('/',checkNotLogin,function (req,res,next) {
 
 // POST /login
 router.post('/',checkNotLogin,function (req,res,next) {
+
   // 生成散列值
   var md5 = crypto.createHash('md5')
   var password = md5.update(req.body.password).digest('base64')

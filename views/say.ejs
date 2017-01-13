@@ -1,4 +1,29 @@
-<form method="post" action="/posts" class="well form-inline center" style="text-align:center;">
+<!-- <form method="post" action="/posts" class="well form-inline center" style="text-align:center;">
   <input type="text" class="span8" name="post">
   <button type="submit" class="btn btn-success"><i class="icon-comment icon-white"></i> 发言</button>
-</form>
+</form> -->
+
+<div class="row">
+  <div class="row">
+    <a class="avatar"
+       href="/posts?author=<%= user._id %>"
+       data-title="<%= user.name %> | <%= ({m: '男', f: '女', x: '保密'})[user.gender] %>"
+       data-content="<%= user.bio %>">
+      <img class="avatar" src="/upload/img/<%= user.avatar %>">
+    </a>
+  </div>
+
+  <div class="row">
+    <form class="well form-inline center" method="post" action="/posts">
+      <div class="control-group">
+        <label>标题</label>
+        <input type="text" name="title">
+      </div>
+      <div class="control-group">
+        <label>内容</label>
+        <textarea name="content" rows="15"></textarea>
+      </div>
+      <input type="submit" class="ui button" value="发布">
+    </div>
+  </form>
+</div>

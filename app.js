@@ -11,7 +11,7 @@ var session = require('express-session') // session中间件
 var MongoStore = require('connect-mongo')(session) // 将 session 存储于 mongodb，结合 express-session 使用
 var methodOverride = require('method-override');
 var flash = require('connect-flash') // 页面通知提示的中间件，基于 session 实现
-var formidable = require('express-formidable')
+// var formidable = require('express-formidable')
 var routes = require('./routes')
 var app = express();
 
@@ -25,13 +25,13 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')))
 
 
-// app.set('trust proxy', 1) // trust first proxy
-// app.use(require('body-parser').urlencoded({extended: true}))
+app.set('trust proxy', 1) // trust first proxy
+app.use(require('body-parser').urlencoded({extended: true}))
 // app.use(methodOverride())
 // app.use(cookieParser())
 
 // 启用layout
-app.use(partials());
+app.use(partials())
 
 // session中间件
 // 提供会话支持，设置它的store参数为MongoStore实例，把会话信息存储到数据库中去，以避免数据丢失
@@ -49,7 +49,7 @@ app.use(session({
 }))
 
 // flash中间件，用来显示通知信息
-app.use(flash());
+app.use(flash())
 
 // 处理表单及文件上传的中间件
 // app.use(formidable({
@@ -61,8 +61,6 @@ app.use(flash());
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 // app.use(logger('dev'));
 // app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(cookieParser());
 
 // 设置模板全局常量,用来挂载常量信息，比如：博客名，描述，作者信息等
 // app.locals.blog = {
