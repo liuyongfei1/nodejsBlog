@@ -1,11 +1,11 @@
-var fs = require('fs');
+var fs = require('fs')
+var path = require('path')
 var express = require('express')
 var router = express.Router()
 var crypto = require('crypto')
-var User = require('../models/user.js')
+var UserModel = require('../models/users')
 var checkNotLogin = require('../middlewares/check').checkNotLogin
 var formidable = require('express-formidable')
-var path = require('path')
 var app = express()
 
 // 用户注册
@@ -77,25 +77,29 @@ router.post('/',checkNotLogin,function(req, res, next) {
   // 将写入数据库的用户信息
   var newUser = new User(info)
 
-  // 检查用户名是否已经存在
-  User.get(newUser.name,function (err,user) {
-    if (user)
-      err = 'Username already exists'
-    if (err) {
-      req.flash('error',err)
-      return res.redirect('/reg')
+  // 检查用户名是否已经存在 ?
+ // 将用户信息写入数据库
+  UserModel.create(user)
+  .then(function (result) {
+    // 此user是插入mongo后的值，包含_id
+    user = result.ops[0]
+    // 将用户信息存入session
+    delete user.password
+    req.session.user = user
+    // 写入flash
+    req.flash('success','注册成功')
+    // 跳转到首页
+    res.redirect('/posts')
+  }).catch(function (e) {
+    // 注册失败，异步删除上传的头像
+    fs.unlink(req.files.avatar.path)
+    // 用户名如果被占用则调回注册页，而不是错误页
+    if (e.message.match('E11000 duplicate key')) {
+      req.flash('error','用户名已经被占用')
+      res.redirect('/reg')
     }
-
-    // 如果不存在则新增用户
-    newUser.save(function (err) {
-      if (err) {
-        req.flash('error',err)
-        return res.redirect('/reg')
-      }
-      req.session.user = newUser
-      req.flash('success','注册成功')
-      res.redirect('/')
-    })
+    next(e)
   })
+
 })
 module.exports = router

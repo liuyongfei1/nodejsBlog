@@ -2,7 +2,7 @@ var express = require('express')
 var router = express.Router()
 var crypto = require('crypto')
 var checkNotLogin = require('../middlewares/check').checkNotLogin
-var User = require('../models/user.js')
+var User = require('../models/users.js')
 
 // GET /login
 router.get('/',checkNotLogin,function (req,res,next) {
