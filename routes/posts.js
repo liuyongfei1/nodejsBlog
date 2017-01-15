@@ -13,7 +13,7 @@ router.get('/create',checkLogin,function (req,res,next) {
 })
 
 router.post('/',checkLogin,function (req,res,next) {
-  var author = req.session.user.name
+  var author = req.session.user._id
   var title = req.body.title
   var content = req.body.content
 
@@ -36,7 +36,7 @@ router.post('/',checkLogin,function (req,res,next) {
     content : content,
     pv : 0
   }
-
+  console.dir(post)
   PostModel.create(post)
     .then(function (result) {
       // 此post是插入mongodb后的值，包含_id
