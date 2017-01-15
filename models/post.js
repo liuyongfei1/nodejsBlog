@@ -1,4 +1,5 @@
 var mongodb = require('./db')
+var marked = require('marked')
 function Post (username,title,post,time) {
   this.user = username
   this.title = title

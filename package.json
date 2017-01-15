@@ -16,6 +16,7 @@
     "express-formidable": "^1.0.0",
     "express-partials": "*",
     "express-session": "*",
+    "marked": "^0.3.6",
     "method-override": "*",
     "mongodb": ">= 0.9.9",
     "mongolass": "^2.4.1",
