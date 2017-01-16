@@ -11,6 +11,7 @@ var session = require('express-session') // session中间件
 var MongoStore = require('connect-mongo')(session) // 将 session 存储于 mongodb，结合 express-session 使用
 var methodOverride = require('method-override');
 var flash = require('connect-flash') // 页面通知提示的中间件，基于 session 实现
+var config = require('config-lite')
 // var formidable = require('express-formidable')
 var routes = require('./routes')
 var app = express();
@@ -36,13 +37,13 @@ app.use(partials())
 // session中间件
 // 提供会话支持，设置它的store参数为MongoStore实例，把会话信息存储到数据库中去，以避免数据丢失
 app.use(session({
-  secret : settings.cookieSecret,
+  name : config.session.key,// 设置 cookie 中保存 session id 的字段名称
+  secret : config.session.secret,// 通过设置 secret 来计算 hash 值并放在 cookie 中，使产生的 signedCookie 防篡改
   cookie : {
-    maxAge : 60000 * 20	//20 minutes
+    maxAge : config.session.maxAge// 过期时间，过期后 cookie 中的 session id 自动删除
   },
-  store : new MongoStore({
-    db : settings.db,
-    url : 'mongodb://localhost/microblog'
+  store : new MongoStore({ // 将session存储到mogodb
+    url :config.mongodb // mongodb地址
   }),
   resave : false,
   saveUninitialized : false,

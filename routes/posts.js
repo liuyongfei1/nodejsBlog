@@ -3,6 +3,12 @@ var router = express.Router()
 var checkLogin = require('../middlewares/check').checkLogin
 var PostModel = require('../models/posts')
 
+router.get('/',function (req,res,next) {
+  res.render('posts',{
+    'title' : '首页'
+  })
+})
+
 // GET /posts/create 发表文章页
 router.get('/create',checkLogin,function (req,res,next) {
   res.render('create',{

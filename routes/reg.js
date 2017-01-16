@@ -66,7 +66,7 @@ router.post('/',checkNotLogin,function(req, res, next) {
   password = md5.update(password).digest('base64')
 
   //用户信息写入数据库
-  var info = {
+  var user = {
     name : name,
     password : password,
     gender : gender,
@@ -74,10 +74,6 @@ router.post('/',checkNotLogin,function(req, res, next) {
     avatar : avatar
   }
 
-  // 将写入数据库的用户信息
-  var newUser = new User(info)
-
-  // 检查用户名是否已经存在 ?
  // 将用户信息写入数据库
   UserModel.create(user)
   .then(function (result) {
