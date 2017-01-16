@@ -4,9 +4,36 @@ var checkLogin = require('../middlewares/check').checkLogin
 var PostModel = require('../models/posts')
 
 router.get('/',function (req,res,next) {
-  res.render('posts',{
-    'title' : '首页'
+  var author = req.query.author
+  PostModel.getPosts(author)
+    .then(function (posts) {
+      res.render('posts', {
+        title : '首页',
+        posts: posts
+      });
+    })
+    .catch(next)
+})
+
+// GET /posts/:postId 单独一篇的文章页
+router.get('/:postId',function (req,res,next) {
+  var postId = req.params.postId
+  Promise.all([
+    PostModel.getPostById(postId),// 获取文章信息
+    PostModel.incPv(postId)// pv 加 1
+  ])
+  .then(function (result) {
+    var post = result[0];
+    if (!post) {
+      throw new Error('该文章不存在');
+    }
+
+    res.render('post', {
+      title : '详情页',
+      post: post
+    });
   })
+  .catch(next);
 })
 
 // GET /posts/create 发表文章页
@@ -40,12 +67,12 @@ router.post('/',checkLogin,function (req,res,next) {
     content : content,
     pv : 0
   }
-  console.dir(post)
+  // 发表一篇微博
   PostModel.create(post)
     .then(function (result) {
       // 此post是插入mongodb后的值，包含_id
       post = result.ops[0]
-      req.falsh('success','发表成功')
+      req.flash('success','发表成功')
       // 发表成功后跳转到该文章页
       res.redirect(`/posts/${post._id}`)
     })

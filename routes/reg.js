@@ -70,8 +70,8 @@ router.post('/',checkNotLogin,function(req, res, next) {
     name : name,
     password : password,
     gender : gender,
-    intro : intro,
-    avatar : avatar
+    avatar : avatar,
+    intro : intro
   }
 
  // 将用户信息写入数据库
