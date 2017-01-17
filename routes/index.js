@@ -6,4 +6,12 @@ module.exports = function (app) {
   app.use('/login',require('./login'))
   app.use('/logout',require('./logout'))
   app.use('/posts',require('./posts'))
+  // 404 page 可以暂时不用
+  // app.use(function (req, res) {
+  //   if (!res.headersSent) {
+  //     res.render('404',{
+  //       title : 'Not Found',
+  //     });
+  //   }
+  // });
 }
