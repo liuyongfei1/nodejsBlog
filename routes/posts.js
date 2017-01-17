@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var checkLogin = require('../middlewares/check').checkLogin
 var PostModel = require('../models/posts')
+var CommentModel = require('../models/comments')
 
 router.get('/',function (req,res,next) {
   var author = req.query.author
@@ -77,17 +78,20 @@ router.get('/:postId',function (req,res,next) {
   var postId = req.params.postId
   Promise.all([
     PostModel.getPostById(postId),// 获取文章信息
+    CommentModel.getComments(postId),// 获取该文章所有留言
     PostModel.incPv(postId)// pv 加 1
   ])
   .then(function (result) {
     var post = result[0];
+    var comments = result[1];
     if (!post) {
       throw new Error('该文章不存在');
     }
 
     res.render('post', {
       title : '详情页',
-      post: post
+      post: post,
+      comments: comments
     });
   })
   .catch(next);
