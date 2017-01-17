@@ -34,7 +34,6 @@ module.exports = {
 
   // 通过文章id获取该文章下的所有留言,按留言时间创建时间升序
   getComments : function getComments(postId) {
-    console.log(37)
     return Comment
       .find({postId : postId})
       .populate({path : 'author',model : 'User'})
