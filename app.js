@@ -13,6 +13,10 @@ var methodOverride = require('method-override');
 var flash = require('connect-flash') // 页面通知提示的中间件，基于 session 实现
 var config = require('config-lite')
 // var formidable = require('express-formidable')
+
+var winston = require('winston');
+var expressWinston = require('express-winston');
+
 var routes = require('./routes')
 var app = express();
 
@@ -82,7 +86,32 @@ app.use(function (req, res, next) {
 // route start......
 // app.use(indexRouter) // 意味着对/路径下的所有URL请求都会进行判断
 // app.use(userRouter)
-routes(app)
+// 正常请求的日志
+app.use(expressWinston.logger({
+  transports: [
+    new (winston.transports.Console)({
+      json: true,
+      colorize: true
+    }),
+    new winston.transports.File({
+      filename: 'logs/success.log'
+    })
+  ]
+}));
+// 路由
+routes(app);
+// 错误请求的日志
+app.use(expressWinston.errorLogger({
+  transports: [
+    new winston.transports.Console({
+      json: true,
+      colorize: true
+    }),
+    new winston.transports.File({
+      filename: 'logs/error.log'
+    })
+  ]
+}));
 
 // 存放flash,赋给全局变量 注:必须放在route后面，否则比如在login的时候，如果用户名或密码错误，则看不到提示
 // app.use(function(req, res, next){
