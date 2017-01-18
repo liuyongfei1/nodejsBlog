@@ -6,36 +6,36 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 
-var settings = require('./setting')
-var session = require('express-session') // session中间件
-var MongoStore = require('connect-mongo')(session) // 将 session 存储于 mongodb，结合 express-session 使用
+var settings = require('./setting');
+var session = require('express-session'); // session中间件
+var MongoStore = require('connect-mongo')(session); // 将 session 存储于 mongodb，结合 express-session 使用
 var methodOverride = require('method-override');
-var flash = require('connect-flash') // 页面通知提示的中间件，基于 session 实现
-var config = require('config-lite')
+var flash = require('connect-flash'); // 页面通知提示的中间件，基于 session 实现
+var config = require('config-lite');
 
 var winston = require('winston');
 var expressWinston = require('express-winston');
 
-var routes = require('./routes')
+var routes = require('./routes');
 var app = express();
 
 // 设置模板目录
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'views'));
 // 设置模板引擎为 ejs
 app.set('view engine', 'ejs');
 // express.static是内置的中间件
 // express.static(root,[options]) 这个函数是基于伪静态,并负责提供静态资产如HTML文件,图片,等等。
 // root参数指定静态文件的根目录
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.set('trust proxy', 1) // trust first proxy
-app.use(require('body-parser').urlencoded({extended: true}))
+app.set('trust proxy', 1); // trust first proxy
+app.use(require('body-parser').urlencoded({extended: true}));
 // app.use(methodOverride())
 // app.use(cookieParser())
 
 // 启用layout
-app.use(partials())
+app.use(partials());
 
 // session中间件
 // 提供会话支持，设置它的store参数为MongoStore实例，把会话信息存储到数据库中去，以避免数据丢失
@@ -50,10 +50,10 @@ app.use(session({
   }),
   resave : false,
   saveUninitialized : false,
-}))
+}));
 
 // flash中间件，用来显示通知信息
-app.use(flash())
+app.use(flash());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -66,7 +66,7 @@ app.use(flash())
   // description: pkg.description
   // rootPath : __dirname
 // };
-global.rootPath = __dirname
+global.rootPath = __dirname;
 // 添加模板必需的三个变量
 app.use(function (req, res, next) {
   console.log("app.usr local");
@@ -113,7 +113,7 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err); // 如果使用了 next(error)，则会返回错误而不会传递到下一个中间件;
   // next('router') // 如果调用next('router')，则会跳过当前路由的其它中间件，直接将控制权交给下一个路由
-})
+});
 
 // error handler
 // 处理所有error请求,并加载error页面，显示错误信息
@@ -123,7 +123,7 @@ app.use(function(err, req, res, next) {
   res.render('error', {
     title : 'Not Found',
     error : err
-  })
+  });
 });
 
 module.exports = app;
