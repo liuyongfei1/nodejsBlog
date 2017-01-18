@@ -1,5 +1,5 @@
-var marked = require('marked')
-var Comment = require('../lib/mongo').Comment
+var marked = require('marked');
+var Comment = require('../lib/mongo').Comment;
 
 // 将comment 的content 从markdown转换成html
 Comment.plugin('contentToHtml', {
@@ -22,7 +22,7 @@ module.exports = {
   delCommentById : function delCommentById(commentId,author) {
     return Comment
       .remove({author : author,_id : commentId})
-      .exec()
+      .exec();
   },
 
   // 通过文章id删除该文章下的所有留言(删除一篇文章后也要删除该篇文章下的所有留言)
@@ -39,11 +39,11 @@ module.exports = {
       .populate({path : 'author',model : 'User'})
       .sort({_id : 1})
       .addCreatedAt()
-      .exec()
+      .exec();
   },
 
   // 通过文章 id 获取该文章下留言数
   getCommentsCount: function getCommentsCount(postId) {
     return Comment.count({ postId: postId }).exec();
   }
-}
+};

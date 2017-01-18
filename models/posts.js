@@ -1,7 +1,7 @@
 // 存放与文章操作相关的代码
-var marked = require('marked')
-var Post = require('../lib/mongo').Post
-var CommentModel = require('./comments')
+var marked = require('marked');
+var Post = require('../lib/mongo').Post;
+var CommentModel = require('./comments');
 // 给post 添加留言数 commentsCount
 Post.plugin('addCommentsCount', {
   afterFind: function (posts) {
@@ -37,18 +37,20 @@ Post.plugin('contentToHtml',{
     }
     return post;
   }
-})
+});
 module.exports = {
   // 创建一篇文章
   create : function create(post) {
-    return Post.create(post).exec()
+    return Post
+      .create(post)
+      .exec();
   },
   // 通过文章 id 获取一篇原生文章（编辑文章）
   getRawPostById : function getRawPostById(postId) {
     return Post
       .findOne({_id : postId})
       .populate({path : 'author',model : 'User'})
-      .exec()
+      .exec();
   },
 
   // 通过用户 id 和文章 id 更新一篇文章
@@ -96,4 +98,4 @@ module.exports = {
       .update({ _id: postId }, { $inc: { pv: 1 } })
       .exec();
   }
-}
+};
