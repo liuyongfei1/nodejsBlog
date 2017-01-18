@@ -17,6 +17,7 @@ var winston = require('winston');
 var expressWinston = require('express-winston');
 
 var routes = require('./routes');
+var pkg = require('./package');
 var app = express();
 
 // 设置模板目录
@@ -61,11 +62,10 @@ app.use(flash());
 // app.use(bodyParser.json());
 
 // 设置模板全局常量,用来挂载常量信息，比如：博客名，描述，作者信息等
-// app.locals.blog = {
-  // title: pkg.name,
-  // description: pkg.description
-  // rootPath : __dirname
-// };
+app.locals.blog = {
+  title: pkg.name,
+  description: pkg.description
+};
 global.rootPath = __dirname;
 // 添加模板必需的三个变量
 app.use(function (req, res, next) {
