@@ -12,7 +12,6 @@ var MongoStore = require('connect-mongo')(session) // 将 session 存储于 mong
 var methodOverride = require('method-override');
 var flash = require('connect-flash') // 页面通知提示的中间件，基于 session 实现
 var config = require('config-lite')
-// var formidable = require('express-formidable')
 
 var winston = require('winston');
 var expressWinston = require('express-winston');
@@ -55,12 +54,6 @@ app.use(session({
 
 // flash中间件，用来显示通知信息
 app.use(flash())
-
-// 处理表单及文件上传的中间件
-// app.use(formidable({
-//   uploadDir: path.join(__dirname, 'public/upload/img'),// 上传文件目录
-//   keepExtensions: true// 保留后缀
-// }))
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -112,16 +105,6 @@ app.use(expressWinston.errorLogger({
     })
   ]
 }));
-
-// 存放flash,赋给全局变量 注:必须放在route后面，否则比如在login的时候，如果用户名或密码错误，则看不到提示
-// app.use(function(req, res, next){
-//   console.log("To deal with global session");
-//   var error = req.flash('error');
-//   res.locals.error = error.length ? error : null;
-//   var success = req.flash('success');
-//   res.locals.success = success.length ? success : null;
-//   next();
-// });
 // route end......
 
 // catch 404 and forward to error handler
