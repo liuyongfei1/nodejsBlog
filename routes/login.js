@@ -19,22 +19,23 @@ router.post('/',checkNotLogin,function (req,res,next) {
   var md5 = crypto.createHash('md5');
   var password = md5.update(req.body.password).digest('base64');
 
-  UserModel.getUserByName(name)
-  .then(function (user) {
-    if (!user) {
-      req.flash('error','用户不存在');
-      return res.redirect('back');
-    }
-    // 检查密码是否匹配
-    if (user.password != password) {
-      req.flash('error','用户名或密码错误');
-      return res.redirect('back');
-    }
-    req.flash('success','登录成功');
-    delete user.password;
-    req.session.user = user;
-    // 跳转到主页
-    res.redirect('back');
+  UserModel
+    .getUserByName(name)
+    .then(function (user) {
+      if (!user) {
+        req.flash('error','用户不存在');
+        return res.redirect('back');
+      }
+      // 检查密码是否匹配
+      if (user.password != password) {
+        req.flash('error','用户名或密码错误');
+        return res.redirect('back');
+      }
+      req.flash('success','登录成功');
+      delete user.password;
+      req.session.user = user;
+      // 跳转到主页
+      res.redirect('back');
   })
   .catch(next);
 });

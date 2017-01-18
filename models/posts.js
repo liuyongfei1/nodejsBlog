@@ -6,18 +6,22 @@ var CommentModel = require('./comments');
 Post.plugin('addCommentsCount', {
   afterFind: function (posts) {
     return Promise.all(posts.map(function (post) {
-      return CommentModel.getCommentsCount(post._id).then(function (commentsCount) {
-        post.commentsCount = commentsCount;
-        return post;
-      });
+      return CommentModel
+        .getCommentsCount(post._id)
+        .then(function (commentsCount) {
+          post.commentsCount = commentsCount;
+          return post;
+        });
     }));
   },
   afterFindOne: function (post) {
     if (post) {
-      return CommentModel.getCommentsCount(post._id).then(function (count) {
-        post.commentsCount = count;
-        return post;
-      });
+      return CommentModel
+        .getCommentsCount(post._id)
+        .then(function (count) {
+          post.commentsCount = count;
+          return post;
+        });
     }
     return post;
   }
@@ -62,7 +66,8 @@ module.exports = {
 
   // 通过用户 id 和文章 id 删除一篇文章
   delPostById: function delPostById(postId, author) {
-    return Post.remove({ author: author, _id: postId })
+    return Post
+      .remove({ author: author, _id: postId })
       .exec()
       .then(function (res) {
         // 文章删除后，再删除该文章下的所有留言
@@ -74,8 +79,13 @@ module.exports = {
 
   // 通过id获取一篇文章
   getPostById: function getPostById(postId) {
-    return Post.findOne({ _id: postId }).populate({ path: 'author', model: 'User' })
-    .addCreatedAt().addCommentsCount().contentToHtml().exec();
+    return Post
+      .findOne({ _id: postId })
+      .populate({ path: 'author', model: 'User' })
+      .addCreatedAt()
+      .addCommentsCount()
+      .contentToHtml()
+      .exec();
   },
 
   // 按创建时间降序获取所有用户文章或者某个特定用户的所有文章
@@ -84,8 +94,10 @@ module.exports = {
     if (author) {
       query.author = author;
     }
-    return Post.find(query)
-    .populate({ path: 'author', model: 'User' }).sort({ _id: -1 })
+    return Post
+      .find(query)
+      .populate({ path: 'author', model: 'User' })
+      .sort({ _id: -1 })
       .addCreatedAt()
       .addCommentsCount()
       .contentToHtml()

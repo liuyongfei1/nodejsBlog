@@ -6,7 +6,8 @@ var CommentModel = require('../models/comments');
 
 router.get('/',function (req,res,next) {
   var author = req.query.author;
-  PostModel.getPosts(author)
+  PostModel
+    .getPosts(author)
     .then(function (posts) {
       res.render('posts', {
         title : '首页',
@@ -28,7 +29,8 @@ router.get('/:postId/edit', checkLogin, function(req, res, next) {
   var postId = req.params.postId;
   var author = req.session.user._id;
 
-  PostModel.getRawPostById(postId)
+  PostModel
+    .getRawPostById(postId)
     .then(function (post) {
       if (!post) {
         throw new Error('该文章不存在');
@@ -50,7 +52,8 @@ router.post('/:postId/edit', checkLogin, function(req, res, next) {
   var title = req.body.title;
   var content = req.body.content;
 
-  PostModel.updatePostById(postId, author, { title: title, content: content })
+  PostModel
+    .updatePostById(postId, author, { title: title, content: content })
     .then(function () {
       req.flash('success', '编辑文章成功');
       // 编辑成功后跳转到上一页
@@ -64,7 +67,8 @@ router.get('/:postId/remove', checkLogin, function(req, res, next) {
   var postId = req.params.postId;
   var author = req.session.user._id;
 
-  PostModel.delPostById(postId, author)
+  PostModel
+    .delPostById(postId, author)
     .then(function () {
       req.flash('success', '删除文章成功');
       // 删除成功后跳转到主页
@@ -108,7 +112,8 @@ router.post('/:postId/comment', checkLogin, function(req, res, next) {
     content: content
   };
 
-  CommentModel.create(comment)
+  CommentModel
+    .create(comment)
     .then(function () {
       req.flash('success', '留言成功');
       // 留言成功后跳转到上一页
@@ -122,7 +127,8 @@ router.get('/:postId/comment/:commentId/remove', checkLogin, function(req, res, 
   var commentId = req.params.commentId;
   var author = req.session.user._id;
 
-  CommentModel.delCommentById(commentId, author)
+  CommentModel
+    .delCommentById(commentId, author)
     .then(function () {
       req.flash('success', '删除留言成功');
       // 删除成功后跳转到上一页
@@ -157,7 +163,8 @@ router.post('/',checkLogin,function (req,res,next) {
     pv : 0
   };
   // 发表一篇微博
-  PostModel.create(post)
+  PostModel
+    .create(post)
     .then(function (result) {
       // 此post是插入mongodb后的值，包含_id
       post = result.ops[0];
