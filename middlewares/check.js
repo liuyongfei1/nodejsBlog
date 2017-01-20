@@ -1,4 +1,5 @@
 module.exports = {
+  // 路由中间件
   checkLogin : function (req,res,next) {
     if (!req.session.user) {
       req.flash('error','未登录');

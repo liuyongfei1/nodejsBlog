@@ -78,7 +78,7 @@ app.use(function (req, res, next) {
 
 // route start......
 // app.use(indexRouter) // 意味着对/路径下的所有URL请求都会进行判断
-// app.use(userRouter)
+
 // 正常请求的日志
 app.use(expressWinston.logger({
   transports: [

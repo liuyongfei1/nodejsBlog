@@ -21,6 +21,7 @@ router.use(formidable({
   keepExtensions: true// 保留后缀
 }));
 
+// 提交用户注册表单
 router.post('/',checkNotLogin,function(req, res, next) {
 
   var name = req.fields.username;
