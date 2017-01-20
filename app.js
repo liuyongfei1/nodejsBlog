@@ -35,9 +35,6 @@ app.use(require('body-parser').urlencoded({extended: true}));
 // app.use(methodOverride())
 // app.use(cookieParser())
 
-// 启用layout
-// app.use(partials());
-
 // session中间件
 // 提供会话支持，设置它的store参数为MongoStore实例，把会话信息存储到数据库中去，以避免数据丢失
 app.use(session({
