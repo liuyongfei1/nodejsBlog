@@ -1,15 +1,15 @@
-<button type="button" class="btn btn-default btn-lg">
-  <span class="glyphicon glyphicon-align-justify"></span>
-</button>
-
-<div class="nav-setting">
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+    <span class="glyphicon glyphicon-align-justify"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
     <% if (user) { %>
-      <a class="item" href="/posts?author=<%= user._id %>">个人主页</a>
-      <div class="divider"></div>
-      <a class="item" href="/posts/create">发表文章</a>
-      <a class="item" href="/signout">登出</a>
-    <% } else { %>
-      <a class="item" href="/signin">登录</a>
-      <a class="item" href="/signup">注册</a>
-    <% } %>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="/posts?author=<%= user._id %>">个人主页</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="/posts/create">发表文章</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">退出</a></li>
+    <% else { %>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">登录</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="/reg">注册</a></li>
+    <% }%>
+  </ul>
 </div>
