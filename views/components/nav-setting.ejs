@@ -7,7 +7,7 @@
       <li role="presentation"><a role="menuitem" tabindex="-1" href="/posts?author=<%= user._id %>">个人主页</a></li>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="/posts/create">发表文章</a></li>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">退出</a></li>
-    <% else { %>
+    <% } else { %>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">登录</a></li>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="/reg">注册</a></li>
     <% }%>
