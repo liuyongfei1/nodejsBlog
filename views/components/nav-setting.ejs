@@ -1,8 +1,9 @@
+<div class="nav-setting">
 <div class="dropdown">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
     <span class="glyphicon glyphicon-align-justify"></span>
   </button>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+  <ul class="dropdown-menu" style="min-width:10px;"role="menu" aria-labelledby="dropdownMenu1">
     <% if (user) { %>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="/posts?author=<%= user._id %>">个人主页</a></li>
       <li role="presentation"><a role="menuitem" tabindex="-1" href="/posts/create">发表文章</a></li>
@@ -12,4 +13,5 @@
       <li role="presentation"><a role="menuitem" tabindex="-1" href="/reg">注册</a></li>
     <% }%>
   </ul>
+</div>
 </div>

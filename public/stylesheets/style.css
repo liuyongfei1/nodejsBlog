@@ -47,12 +47,12 @@ a:hover {
 
 .nav-setting {
   position: fixed;
-  right: 30px;
+  right: 60px;
   top: 35px;
   z-index: 999;
 }
 
-.nav-setting .ui.dropdown.button {
+.nav-setting .dropdown.button {
   padding: 10px 10px 0 10px;
   background-color: #fff !important;
 }
