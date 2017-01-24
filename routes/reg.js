@@ -62,7 +62,7 @@ router.post('/',checkNotLogin,function(req, res, next) {
     return res.redirect('/reg');
   }
 
-  // //生成md5的密码
+  //生成md5的密码
   var md5 = crypto.createHash('md5');
   password = md5.update(password).digest('base64');
 
