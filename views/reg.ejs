@@ -2,29 +2,32 @@
 <form class="well form-horizontal" method="post" enctype="multipart/form-data">
   <fieldset>
     <legend>用户注册</legend>
-    <div class="control-group">
+    <div class="form-group" style="padding-left:15px">
       <label class="control-label" for="name">用户名</label>
       <p class="text-danger" style="color:red">*</p>
       <div class="controls">
-        <input type="form-control" class="input-xlarge" id="name" name="name">
+        <input type="form-control" class="form-control" id="name" name="name"
+        style="width:20%;" placeholder="用户名">
         <p class="help-block">你的帐号的名称，用于登录和显示</p>
       </div>
     </div>
-    <div class="control-group">
+    <div class="form-group" style="padding-left:15px">
       <label class="control-label" for="password">密码</label>
       <p class="text-danger" style="color:red">*</p>
       <div class="controls">
-        <input type="password" class="input-xlarge" id="password" name="password">
+        <input type="password" class="form-control" id="password" name="password"
+        style="width:20%;"placeholder="密码">
       </div>
     </div>
-    <div class="control-group">
+    <div class="form-group" style="padding-left:15px">
       <label class="control-label" for="repassword">重复密码</label>
       <p class="text-danger" style="color:red">*</p>
       <div class="controls">
-        <input type="password" class="input-xlarge" id="repassword" name="repassword">
+        <input type="password" class="form-control" id="repassword" name="repassword"
+        style="width:20%;" placeholder="重复密码">
       </div>
     </div>
-    <div class="control-group">
+    <div class="form-group" style="padding-left:15px">
       <label class="control-label" for="gender">性别</label>
       <p class="text-danger" style="color:red">*</p>
       <div class="controls">
@@ -35,14 +38,14 @@
         </select>
       </div>
     </div>
-    <div class="control-group">
+    <div class="form-group" style="padding-left:15px">
       <label class="control-label" for="exampleInputFile">头像</label>
       <p class="text-danger" style="color:red">*</p>
       <div class="controls">
         <input type="file" id="exampleInputFile" name= "avatar">
       </div>
     </div>
-    <div class="control-group">
+    <div class="form-group" style="padding-left:15px">
       <label class="control-label" for="introduction">简介</label>
       <p class="text-danger" style="color:red">*</p>
       <div class="controls">
@@ -50,11 +53,7 @@
           style="width:60%"></textarea>
       </div>
     </div>
-    <div class="control-group" style="margin-top:15px;">
-      <div class="form-actions">
-        <button type="submit" class="btn btn-primary">注册</button>
-      </div>
-    </div>
+    <button type="submit" class="btn btn-primary">注册</button>
   </fieldset>
 </form>
 <% include footer.ejs %>
