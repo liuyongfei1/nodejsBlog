@@ -1,12 +1,12 @@
 <%- include('header') %>
-<form class="form-horizontal" method="post" enctype="multipart/form-data">
+<form class="well form-horizontal" method="post" enctype="multipart/form-data">
   <fieldset>
     <legend>用户注册</legend>
     <div class="control-group">
       <label class="control-label" for="name">用户名</label>
       <p class="text-danger" style="color:red">*</p>
       <div class="controls">
-        <input type="text" class="input-xlarge" id="name" name="name">
+        <input type="form-control" class="input-xlarge" id="name" name="name">
         <p class="help-block">你的帐号的名称，用于登录和显示</p>
       </div>
     </div>
@@ -28,7 +28,7 @@
       <label class="control-label" for="gender">性别</label>
       <p class="text-danger" style="color:red">*</p>
       <div class="controls">
-        <select class="form-control" name="gender">
+        <select class="form-control" name="gender" style="width:10%">
           <option value="m">男</option>
           <option value="f">女</option>
           <option value="x">保密</option>
@@ -46,11 +46,14 @@
       <label class="control-label" for="introduction">简介</label>
       <p class="text-danger" style="color:red">*</p>
       <div class="controls">
-        <textarea class="form-control" rows="3" id="introduction" name="intro"></textarea>
+        <textarea class="form-control" rows="3" id="introduction" name="intro"
+          style="width:60%"></textarea>
       </div>
     </div>
-    <div class="form-actions">
-      <button type="submit" class="btn btn-primary">注册</button>
+    <div class="control-group" style="margin-top:15px;">
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">注册</button>
+      </div>
     </div>
   </fieldset>
 </form>
