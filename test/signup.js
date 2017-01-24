@@ -4,8 +4,8 @@ var request = require('supertest');
 var app = require('../app');
 var User = require('../lib/mongo').User;
 
-var testName1 = 'testName1';
-var testName2 = 'nswbmw';
+var testName1 = 'phping4';
+var testName2 = 'phping';
 
 describe('reg',function () {
   describe('POST /reg',function () {
@@ -48,6 +48,21 @@ describe('reg',function () {
         .end(function(err, res) {
           if (err) return done(err);
           assert(res.text.match(/名字限制在 1-10 个字符/));
+          done();
+        });
+    });
+
+    // 性别错误的情况
+    it('wrong gender',function(done) {
+      agent
+        .post('/reg')
+        .type('form')
+        .attach('avatar', path.join(__dirname, 'avatar.png'))
+        .field({ username : testName1, gender : 'a'})
+        .redirects()
+        .end(function (err,res) {
+          if(err) return done(err);
+          assert(res.text.match(/性别只能是 m,f,x/));
           done();
         });
     });
