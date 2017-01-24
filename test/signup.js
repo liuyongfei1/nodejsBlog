@@ -43,7 +43,7 @@ describe('reg',function () {
         .post('/reg')
         .type('form')
         .attach('avatar', path.join(__dirname, 'avatar.png'))
-        .field({ username: ''})
+        .field({ name: ''})
         .redirects()
         .end(function(err, res) {
           if (err) return done(err);
@@ -58,7 +58,7 @@ describe('reg',function () {
         .post('/reg')
         .type('form')
         .attach('avatar', path.join(__dirname, 'avatar.png'))
-        .field({ username : testName1, gender : 'a'})
+        .field({ name : testName1, gender : 'a'})
         .redirects()
         .end(function (err,res) {
           if(err) return done(err);

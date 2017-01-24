@@ -88,8 +88,8 @@ router.post('/',checkNotLogin,function(req, res, next) {
       req.flash('success','注册成功');
       // 跳转到首页
       res.redirect('/posts');
-    }).
-    catch(function (e) {
+    })
+    .catch(function (e) {
       // 注册失败，异步删除上传的头像
       fs.unlink(req.files.avatar.path);
       // 用户名如果被占用则调回注册页，而不是错误页
