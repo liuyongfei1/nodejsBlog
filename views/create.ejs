@@ -1,6 +1,6 @@
 <% include header.ejs %>
 <div class="row">
-  <div class="row">
+  <div class="col-md-1">
     <a class="avatar"
        href="/posts?author=<%= user._id %>"
        data-title="<%= user.name %> | <%= ({m: '男', f: '女', x: '保密'})[user.gender] %>"
@@ -8,19 +8,23 @@
       <img class="avatar" src="/upload/img/<%= user.avatar %>">
     </a>
   </div>
-
-  <div class="row">
+  <div class="col-md-10">
     <form class="well form-inline center" method="post" action="/posts">
-      <div class="control-group">
+      <div class="form-group">
         <label>标题</label>
-        <input type="text" name="title">
+        <input type="text" name="title" class="form-control" placeholder="请输入标题">
       </div>
-      <div class="control-group">
+      <!-- <div class="form-group">
         <label>内容</label>
         <textarea name="content" rows="15"></textarea>
+      </div> -->
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <input type="submit" class="btn btn-default" value="发布">
+        </div>
       </div>
-      <input type="submit" class="ui button" value="发布">
-    </div>
-  </form>
+    </form>
+  </div>
+  <div class="col-md-1"></div>
 </div>
 <% include footer.ejs %>
