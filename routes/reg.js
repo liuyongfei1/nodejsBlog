@@ -24,7 +24,7 @@ router.use(formidable({
 // 提交用户注册表单
 router.post('/',checkNotLogin,function(req, res, next) {
 
-  var name = req.fields.username;
+  var name = req.fields.name;
   var password = req.fields.password;
   var repassword = req.fields.repassword;
   var gender = req.fields.gender;
