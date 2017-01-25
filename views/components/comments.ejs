@@ -1,10 +1,7 @@
-<div class="ui grid">
-  <div class="four wide column"></div>
-  <div class="eight wide column">
-    <div class="ui segment">
-      <div class="ui minimal comments">
-        <h3 class="ui dividing header">留言</h3>
-
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+        <h3>留言</h3>
         <% comments.forEach(function (comment) { %>
           <div class="comment">
             <span class="avatar">
@@ -27,15 +24,13 @@
         <% }) %>
 
         <% if (user) { %>
-          <form class="ui reply form" method="post" action="/posts/<%= post._id %>/comment">
-            <div class="field">
-              <textarea name="content"></textarea>
+          <form class="well" method="post" action="/posts/<%= post._id %>/comment">
+            <div class="form-group">
+              <textarea name="content" class="form-control"></textarea>
             </div>
-            <input type="submit" class="ui icon button" value="留言" />
+            <input type="submit" class="btn btn-primary" value="留言" />
           </form>
         <% } %>
-
-      </div>
-    </div>
   </div>
+  <div class="col-md-1"></div>
 </div>

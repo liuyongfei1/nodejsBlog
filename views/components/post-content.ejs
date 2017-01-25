@@ -1,6 +1,6 @@
 <div class="post-content">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-1">
       <a class="avatar"
          href="/posts?author=<%= post.author._id %>"
          data-title="<%= post.author.name %> | <%= ({m: '男', f: '女', x: '保密'})[post.author.gender] %>"
@@ -8,29 +8,27 @@
         <img class="avatar" src="/upload/img/<%= post.author.avatar %>">
       </a>
     </div>
-
-    <div class="col-md-8">
-      <div class="row">
+    <div class="col-md-10">
         <h3><a href="/posts/<%= post._id %>"><%= post.title %></a></h3>
         <pre><%- post.content %></pre>
-            <span class="tag"><%= post.created_at %></span>
-            <span class="tag right">&nbsp;&nbsp;
-              <% if (user && post.author._id && user._id.toString() === post.author._id.toString()) { %>
-                <div class="dropdown" style="float:left;margin-top:-5px;">
-                  <button class="btn btn-default dropdown-toggle" style="width:35px;height:32px" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                  </button>
-                  <ul class="dropdown-menu" style="min-width:10px;"role="menu" aria-labelledby="dropdownMenu1">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/posts/<%= post._id %>/edit">编辑</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/posts/<%= post._id %>/remove">删除</a></li>
-                  </ul>
-                </div>
-              <% } %>
-              <span>浏览(<%= post.pv %>)</span>
-              <span>留言(<%= post.commentsCount %>)</span>
-            </span>
-        </div>
+        <span class="tag"><%= post.created_at %></span>
+        <span class="tag right">&nbsp;&nbsp;
+          <% if (user && post.author._id && user._id.toString() === post.author._id.toString()) { %>
+            <div class="dropdown" style="float:left;margin-top:-5px;">
+              <button class="btn btn-default dropdown-toggle" style="width:35px;height:32px" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </button>
+              <ul class="dropdown-menu" style="min-width:10px;"role="menu" aria-labelledby="dropdownMenu1">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="/posts/<%= post._id %>/edit">编辑</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="/posts/<%= post._id %>/remove">删除</a></li>
+              </ul>
+            </div>
+          <% } %>
+          <span>浏览(<%= post.pv %>)</span>
+          <span>留言(<%= post.commentsCount %>)</span>
+        </span>
       </div>
+      <div class="col-md-1"><div>
     </div>
   </div>
 </div>
