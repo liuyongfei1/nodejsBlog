@@ -1,6 +1,6 @@
 <div class="post-content">
-  <div class="ui grid">
-    <div class="four wide column">
+  <div class="row">
+    <div class="col-md-4">
       <a class="avatar"
          href="/posts?author=<%= post.author._id %>"
          data-title="<%= post.author.name %> | <%= ({m: '男', f: '女', x: '保密'})[post.author.gender] %>"
@@ -9,8 +9,8 @@
       </a>
     </div>
 
-    <div class="eight wide column">
-      <div class="ui segment">
+    <div class="col-md-8">
+      <div class="row">
         <h3><a href="/posts/<%= post._id %>"><%= post.title %></a></h3>
         <pre><%- post.content %></pre>
         <div>
@@ -29,7 +29,6 @@
                 </div>
               </div>
             <% } %>
-
           </span>
         </div>
       </div>

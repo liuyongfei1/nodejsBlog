@@ -32,10 +32,11 @@ router.post('/',checkNotLogin,function (req,res,next) {
         return res.redirect('back');
       }
       req.flash('success','登录成功');
+      // 将用户信息写入session
       delete user.password;
       req.session.user = user;
       // 跳转到主页
-      res.redirect('back');
+      res.redirect('/posts');
   })
   .catch(next);
 });
