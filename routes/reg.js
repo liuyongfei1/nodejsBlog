@@ -33,27 +33,31 @@ router.post('/',checkNotLogin,function(req, res, next) {
 
   // 校验参数
   try {
+    console.log(36);
     if (!(name.length >= 1 && name.length <= 10)) {
       throw new Error('名字限制在 1-10 个字符之间');
     }
+    console.log(40);
     if (['m','f','x'].indexOf(gender) === -1) {
       throw new Error('性别只能是 m,f,x');
     }
-
+    console.log(44);
     if (password.length < 6) {
       throw new Error('密码至少 6 个字符');
     }
-
+    console.log(48);
     if (password != repassword) {
       throw new Error('两次输入密码不一致');
     }
-
+    console.log(52);
     if (!req.files.avatar) {
       throw new Error('缺少头像');
     }
-
-    if (!(name.length >= 1 && name.length <= 30)) {
-      throw new Error('个人简介限制在 1-30 个字符之间');
+    console.log(54);
+    console.log(intro);
+    if (!(intro.length >= 3 && intro.length <= 30)) {
+      console.log(56);
+      throw new Error('个人简介限制在 3-30 个字符之间');
     }
   } catch (e) {
     // 注册失败，删除异步上传的头像

@@ -67,5 +67,51 @@ describe('reg',function () {
         });
     });
 
+    // 密码长度功能测试
+    it('wrong password length', function(done) {
+      agent
+        .post('/reg')
+        .type('form')
+        .attach('avatar', path.join(__dirname, 'avatar.png'))
+        .field({ name : testName1, gender : 'm', password : '12'})
+        .redirects()
+        .end(function (err,res) {
+          if(err) return done(err);
+          assert(res.text.match(/密码至少 6 个字符/));
+          done();
+        });
+    });
+
+    // 前后两次输入的密码不一致
+    it('wrong password no the same', function(done) {
+      agent
+        .post('/reg')
+        .type('form')
+        .attach('avatar', path.join(__dirname, 'avatar.png'))
+        .field({ name : testName1, gender : 'm', password : '123456', repassword : '123'})
+        .redirects()
+        .end(function (err,res) {
+          if(err) return done(err);
+          assert(res.text.match(/两次输入密码不一致/));
+          done();
+        });
+    });
+
+    // 用户简介
+    // it('wrong intro', function(done) {
+    //   agent
+    //     .post('/reg')
+    //     .type('form')
+    //     .attach('avatar', path.join(__dirname, 'avatar.png'))
+    //     .field({ name : testName1, gender : 'm', password : '12345', intro : 'a'})
+    //     .redirects()
+    //     .end(function (err,res) {
+    //       if(err) return done(err);
+    //       console.log(res.text);
+    //       assert(res.text.match(/个人简介限制在 1-30 个字符之间/));
+    //       done();
+    //     });
+    // });
+
   });
 });
