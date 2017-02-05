@@ -53,7 +53,7 @@ describe('reg',function () {
     });
 
     // 性别错误的情况
-    it('wrong gender',function(done) {
+    it('wrong gender', function(done) {
       agent
         .post('/reg')
         .type('form')
@@ -98,20 +98,20 @@ describe('reg',function () {
     });
 
     // 用户简介
-    // it('wrong intro', function(done) {
-    //   agent
-    //     .post('/reg')
-    //     .type('form')
-    //     .attach('avatar', path.join(__dirname, 'avatar.png'))
-    //     .field({ name : testName1, gender : 'm', password : '12345', intro : 'a'})
-    //     .redirects()
-    //     .end(function (err,res) {
-    //       if(err) return done(err);
-    //       console.log(res.text);
-    //       assert(res.text.match(/个人简介限制在 1-30 个字符之间/));
-    //       done();
-    //     });
-    // });
+    it('wrong intro', function(done) {
+      agent
+        .post('/reg')
+        .type('form')
+        .attach('avatar', path.join(__dirname, 'avatar.png'))
+        .field({ name : testName1, gender : 'm', password : '123456',
+        repassword : '123456',intro : ''})
+        .redirects()
+        .end(function (err,res) {
+          if(err) return done(err);
+          assert(res.text.match(/个人简介限制在 1-30 个字符之间/));
+          done();
+        });
+    });
 
   });
 });
