@@ -3,8 +3,10 @@
   <fieldset>
     <legend>用户注册</legend>
     <div class="form-group" style="padding-left:15px">
-      <label class="control-label" for="name">用户名</label>
-      <p class="text-danger" style="color:red">*</p>
+        <div style="float:left">
+          <label class="control-label" for="name">用户名</label>
+        </div>
+        <p class="text-danger" style="color:red">*</p>
       <div class="controls">
         <input type="form-control" class="form-control" id="name" name="name"
         style="width:20%;" placeholder="用户名">
@@ -12,7 +14,9 @@
       </div>
     </div>
     <div class="form-group" style="padding-left:15px">
-      <label class="control-label" for="password">密码</label>
+      <div style="float:left">
+        <label class="control-label" for="password">密码</label>
+      </div>
       <p class="text-danger" style="color:red">*</p>
       <div class="controls">
         <input type="password" class="form-control" id="password" name="password"
@@ -20,7 +24,9 @@
       </div>
     </div>
     <div class="form-group" style="padding-left:15px">
-      <label class="control-label" for="repassword">重复密码</label>
+      <div style="float:left">
+        <label class="control-label" for="repassword">重复密码</label>
+      </div>
       <p class="text-danger" style="color:red">*</p>
       <div class="controls">
         <input type="password" class="form-control" id="repassword" name="repassword"
@@ -28,10 +34,12 @@
       </div>
     </div>
     <div class="form-group" style="padding-left:15px">
-      <label class="control-label" for="gender">性别</label>
+      <div style="float:left">
+        <label class="control-label" for="gender">性别</label>
+      </div>
       <p class="text-danger" style="color:red">*</p>
       <div class="controls">
-        <select class="form-control" name="gender" style="width:10%">
+        <select class="form-control" name="gender" style="width:20%">
           <option value="m">男</option>
           <option value="f">女</option>
           <option value="x">保密</option>
@@ -39,14 +47,18 @@
       </div>
     </div>
     <div class="form-group" style="padding-left:15px">
-      <label class="control-label" for="exampleInputFile">头像</label>
+      <div style="float:left">
+        <label class="control-label" for="exampleInputFile">头像</label>
+      </div>
       <p class="text-danger" style="color:red">*</p>
       <div class="controls">
         <input type="file" id="exampleInputFile" name= "avatar">
       </div>
     </div>
     <div class="form-group" style="padding-left:15px">
-      <label class="control-label" for="introduction">简介</label>
+      <div style="float:left">
+        <label class="control-label" for="introduction">简介</label>
+      </div>
       <p class="text-danger" style="color:red">*</p>
       <div class="controls">
         <textarea class="form-control" rows="3" id="introduction" name="intro"
