@@ -81,7 +81,7 @@ describe('reg',function () {
           done();
         });
     });
-
+    
     // 前后两次输入的密码不一致
     it('wrong password no the same', function(done) {
       agent

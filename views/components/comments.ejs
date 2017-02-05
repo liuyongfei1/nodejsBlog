@@ -12,7 +12,7 @@
               <div class="metadata">
                 <span class="date"><%= comment.created_at %></span>
               </div>
-              <div class="text"><%- comment.content %></div>
+              <p class="bg-info"><%- comment.content %></p>
 
               <% if (user && comment.author._id && user._id.toString() === comment.author._id.toString()) { %>
                 <div class="actions">
