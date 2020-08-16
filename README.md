@@ -3,6 +3,13 @@
 > 2. 感谢[cnodejs社区]
 > 3. 目前完成了一个简单微博所应具有的基础功能，后续会对此项目进行优化，完善和补充
 
+## 微信公众号
+欢迎关注微信公众号：
+![Alt text](./qr-code.jpeg)
+
+可以访问 [这里](https://mp.weixin.qq.com/mp/appmsgalbum?action=getalbum&album_id=1410124501450571776&__biz=MzAwMjk5NTY3Mw==#wechat_redirect) 查看更多关于**大数据平台建设**的原创文章。
+
+
 ### 开发环境
 1. 操作系统: OSX Yosemite 10.10.5
 2. `nodejs` : v5.1.0
