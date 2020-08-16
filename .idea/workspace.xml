@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:feature" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="569234e3-f4e4-4231-a515-d89c8cdb642c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,17 +64,32 @@
       <option name="presentableId" value="Default" />
       <updated>1597544867582</updated>
       <workItem from="1597544869366" duration="248000" />
-      <workItem from="1597545150498" duration="1043000" />
+      <workItem from="1597545150498" duration="1110000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
     <state x="378" y="135" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1597545284010">
       <screen x="0" y="23" width="1280" height="716" />
     </state>
     <state x="378" y="135" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1280.716@0.23.1280.716" timestamp="1597545284010" />
+    <state x="340" y="138" width="600" height="486" key="find.popup" timestamp="1597546362525">
+      <screen x="0" y="23" width="1280" height="716" />
+    </state>
+    <state x="340" y="138" width="600" height="486" key="find.popup/0.23.1280.716@0.23.1280.716" timestamp="1597546362525" />
   </component>
 </project>
