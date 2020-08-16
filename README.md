@@ -5,7 +5,7 @@
 
 ## 微信公众号
 欢迎关注微信公众号：
-![Alt text](./public/img/qrcode.jpeg)
+![Alt text](public/img/erweima.jpeg)
 
 可以访问 [这里](https://mp.weixin.qq.com/mp/appmsgalbum?action=getalbum&album_id=1410124501450571776&__biz=MzAwMjk5NTY3Mw==#wechat_redirect) 查看更多关于**大数据平台建设**的原创文章。
 
